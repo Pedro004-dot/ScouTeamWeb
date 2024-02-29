@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import { firestore} from '../firebaseConfig';
-import { addDoc,collection,onSnapshot} from 'firebase/firestore';
+import { addDoc,collection,onSnapshot,doc,updateDoc} from 'firebase/firestore';
 
 let dbRef = collection(firestore, "posts")
 let userRef = collection(firestore, "users")
@@ -35,13 +35,17 @@ export const getCurrentUser = (setCurrentUser)=>{
   const currEmail = localStorage.getItem('userEmail') 
 
   onSnapshot(userRef,(response)=>{
-    setCurrentUser(response.docs.map((docs)=>{
-      return{...docs.data()}
+    setCurrentUser(
+      response.docs
+      .map((docs)=>{
+      return{...docs.data(), userID: docs.id}
     }).filter((item)=>{
     return item.email === currEmail
     })[0]
     )
-  })
+    
+  }
+  )
 
   // onSnapshot(userRef,(response)=>{
   //   setCurrentUser(response.docs.map((docs)=>{
@@ -51,4 +55,17 @@ export const getCurrentUser = (setCurrentUser)=>{
   //   })[0]
   //   )
   // })
+}
+
+export const editProdile = (userID,payLoad)=>{
+  let userToEdit = doc(userRef,userID)
+
+  updateDoc(userToEdit,payLoad)
+  .then(()=>{
+    toast.success("Alteração feita com sucesso")
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+  
 }

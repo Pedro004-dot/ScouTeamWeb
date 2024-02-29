@@ -1,0 +1,20 @@
+.profile-edit{
+width: auto;
+min-height: auto;
+background-color: whitesmoke; 
+margin: 30px;
+border-radius: 5px;
+margin-top: 115px;
+padding: 20px;
+position: relative;
+
+} 
+.profile-edit-inputs{
+    display: grid;
+    gap: 15px;
+    margin-top: 50px ;
+}
+.save-container{
+    display: flex;
+    justify-content: center;
+}

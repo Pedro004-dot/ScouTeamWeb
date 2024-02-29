@@ -17,12 +17,37 @@ export default function Header(){
         <div className="topbar-main">
              <p className="logo">SCOUT<br/>TEAM</p>
              <div className="react-icons" >
-                <GoHome  size={25} className="react-icon" onClick={ ()=> goToRoute("/Home")} />
-                <FaRegUser size={25} className="react-icon"onClick={ ()=> goToRoute("/Profile")} />
-                <TiWatch size={25} className="react-icon" onClick={ ()=> goToRoute("/Noticias")}/>
-                <FiClipboard size={25} className="react-icon" onClick={ ()=> goToRoute("/Atletas")} />
-                <GoBell size={25} className="react-icon" onClick={ ()=> goToRoute("/Notificacoes")} />
-                <img src={user} alt="user" className="user-logo"/>
+                <GoHome 
+                 size={25} 
+                 className="react-icon" 
+                 onClick={ ()=> goToRoute("/Home")}
+                  />
+                <FaRegUser 
+                size={25} 
+                className="react-icon" 
+                onClick={ ()=> goToRoute("/Profile")}
+                 />
+                <TiWatch 
+                size={25} 
+                className="react-icon"
+                 onClick={ ()=> goToRoute("/Noticias")}
+
+                 />
+                <FiClipboard 
+                size={25} 
+                className="react-icon" 
+                onClick={ ()=> goToRoute("/Atletas")}
+                 />
+                <GoBell
+                 size={25}
+                  className="react-icon" 
+                  onClick={ ()=> goToRoute("/Notificacoes")}
+                   />
+                <img 
+                src={user}
+                 alt="user" 
+                 className="user-logo"                   
+                 />
              </div>
              
         </div>

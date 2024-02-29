@@ -15,7 +15,7 @@ export default function PostUpdate({ currentUser }) {
   const [status,setStatus] = useState('')
   const [allStatus,setAllStatus] = useState([])
 
-  let userEmail = localStorage.getItem('userEmail')
+  // let userEmail = localStorage.getItem('userEmail')
 
   const sendStatus= async ()=>{
     let object = {

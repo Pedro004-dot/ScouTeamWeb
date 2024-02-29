@@ -1,0 +1,33 @@
+.profile-card{
+    width: auto;
+    min-height: auto;
+    background-color: whitesmoke; 
+    margin: 30px;
+    border-radius: 5px;
+    margin-top: 115px;
+    padding: 20px;
+    position: relative;
+    padding-bottom: 20px;
+    .userName{
+        font-family: system-ui, sans-serif;
+        color: rgba(0,0,0,0.9);
+        font-weight: 600;
+        font-size: 24px;
+    }
+    .userEmail{
+        margin-top: -20px;
+        font-family: system-ui,  sans-serif;
+        color: rgba(0,0,0,0.9);
+        font-size: 16px;
+    }
+    .edit-btn {
+        position: absolute;
+        right: 20px;
+        button{
+         color: black;
+         cursor: pointer;
+        }
+        
+    }
+
+}

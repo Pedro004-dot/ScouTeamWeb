@@ -8,7 +8,6 @@ export default function HomeLayouts() {
   useMemo(()=>{
     getCurrentUser(setCurrentUser)
   },[])
-  
  return (
    <div>
    <Header/>
