@@ -1,0 +1,14 @@
+.botao{
+display: flex;
+min-width: 140px;
+padding: var(--eag-padding-remove-16, 16px) var(--eag-padding-remove-32, 32px);
+justify-content: center;
+align-items: center;
+gap: var(--eag-spacing-remove-8, 8px);
+align-self: stretch;
+border-radius: var(--eag-radius-remove-4, 4px);
+background: var(--ST-Color-Surface-Brand-Dark, #A12400);
+background-color: #A12400;
+color: #ffffff;
+cursor: pointer
+}
