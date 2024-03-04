@@ -49,6 +49,13 @@ export default function P0rofileEdit({onEdit,currentUser}) {
       onChange={getInput}
 
       />
+      <input
+      className="commom-input" 
+      placeholder="Time"
+      name = "time"
+      onChange={getInput}
+
+      />
     </div>
    <div className="save-container" >
     <button 

@@ -14,8 +14,7 @@ export default function LoginComponent() {
   const login = async ()=>{
     try {
      let res = await  LoginAPI(credentails.email,credentails.password)
-     localStorage.setItem("userEmail", res.user._UserImpl.email)
-      // console.log(res.user.email)
+     localStorage.setItem("userEmail", credentails.email) 
       navigate("/Home")
       toast.success('Signed In to Scout team')
     } catch(err) {
@@ -40,13 +39,17 @@ export default function LoginComponent() {
     <div className="login-wrapper" >
      
       <div className="auth-inputs" >
-        <input onChange={(event)=>setCredentails({...credentails, email: event.target.value})}
+        <input
+         onChange={(event)=>setCredentails({...credentails, email: event.target.value})}
         className="commom-input"
         placeholder="Entre com o email"
+        style={{ width: "150% " }}
         />
-        <input onChange={(event)=>setCredentails({...credentails, password: event.target.value})}
+        <input 
+        onChange={(event)=>setCredentails({...credentails, password: event.target.value})}
         className="commom-input"
         placeholder="Entre com a senha"
+        style={{ width: "150% " }}
         />
         <p>Deseja criar uma conta? <span onClick={()=> navigate("/register")} >Clique aqui</span></p>
          <button className="botao" onClick={login}>Login</button>

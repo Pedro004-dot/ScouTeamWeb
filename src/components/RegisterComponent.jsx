@@ -3,6 +3,7 @@ import {RegisterAPI } from "../api/AuthAPI";
 import "../Sass/RegisterComponent.scss"
 import { useNavigate } from "react-router-dom";
 import { postUserData } from "../api/FirestoreAPI";
+import getUniqueID from "../helpers/getUniqueID"
 
 
 export default function RegisterComponent() {
@@ -11,9 +12,13 @@ export default function RegisterComponent() {
   const register = async ()=>{
     try {
      const res = await  RegisterAPI(credentails.email,credentails.password)
-     localStorage.setItem("userEmail", credentails.email)
-     postUserData({name : credentails.name , email : credentails.email, password : credentails.password})
-     console.log(credentails.email); // Output: juliatorrezanii@gmail.com 
+    
+     postUserData({
+      userID: getUniqueID(),
+      name : credentails.name ,
+      email : credentails.email
+      }) 
+      localStorage.setItem("userEmail", credentails.email)
       navigate("/")
     } catch (error) {
       alert(error.errors.message)

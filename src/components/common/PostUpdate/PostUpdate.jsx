@@ -21,6 +21,7 @@ export default function PostUpdate({ currentUser }) {
     let object = {
       status : status,
       timeStamp : getCurrentTimeStamp("LLL"),
+      userID : currentUser.userID,
       userEmail : currentUser.email,
       name: currentUser.name,
       postID: getUniqueID()
@@ -31,16 +32,22 @@ export default function PostUpdate({ currentUser }) {
   }
   useMemo(()=>{
     getStatus(setAllStatus)
-   
   },[])
   
  return (
    <div className="post-status-main" >
      <div className="post-status" >
-      <button className="open-post-modal" onClick={()=> setModalOpen(true)} >
+      <button 
+      className="open-post-modal"
+       onClick={()=> setModalOpen(true)} >
       Start a post </button>
     </div>
-    <ModalComponent status={status} setStatus={setStatus} modalOpen={modalOpen} setModalOpen={setModalOpen} sendStatus ={sendStatus}/>
+    <ModalComponent
+     status={status} 
+     setStatus={setStatus}
+      modalOpen={modalOpen} 
+      setModalOpen={setModalOpen}
+       sendStatus ={sendStatus}/>
       <div >
       {allStatus.map((posts)=>{
         return(

@@ -6,12 +6,22 @@ import { FiClipboard } from "react-icons/fi";
 import { GoBell } from "react-icons/go";
 import user from "../../../assets/user.png"
 import { useNavigate } from "react-router-dom";
+import ProfilePopUp from "../ProfilePopUp/ProfilePopUp";
+import { useState } from "react";
 
 export default function Header(){
+    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
     const navigate = useNavigate()
     const goToRoute = (route)=>{
         navigate(route)
     }
+    const handleLogout = () => {
+        setIsPopUpOpen(true);
+      };
+    
+      const handleClosePopUp = () => {
+        setIsPopUpOpen(false);
+      };
 
     return(
         <div className="topbar-main">
@@ -44,12 +54,17 @@ export default function Header(){
                   onClick={ ()=> goToRoute("/Notificacoes")}
                    />
                 <img 
-                src={user}
+                 src={user}
                  alt="user" 
-                 className="user-logo"                   
+                 className="user-logo"
+                 onClick={handleLogout}
+                 style={{ cursor: "pointer" }}           
                  />
              </div>
-             
+             {isPopUpOpen && <ProfilePopUp 
+              onClose={handleClosePopUp} 
+              
+              />}
         </div>
     )
 }
