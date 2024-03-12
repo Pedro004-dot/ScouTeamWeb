@@ -10,7 +10,7 @@ export default function Login() {
  const navigate = useNavigate()
   useEffect(()=>{
     onAuthStateChanged(auth, (res)=>{
-       (res?.accessToken)? navigate("/Home"): setLoading(false)
+       (res?.accessToken)? navigate("/home"): setLoading(false)
     })
 },[])
  return loading ? <Loader/> :  (

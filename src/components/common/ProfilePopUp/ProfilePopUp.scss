@@ -3,12 +3,12 @@
     width: 200px;
     height: 100px;
     background-color: whitesmoke;
-    border-radius: 20px;
-    
-   
-    .popup-options{
-        list-style: none;
-    }
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
     .popup-option{
         cursor: pointer;
     }

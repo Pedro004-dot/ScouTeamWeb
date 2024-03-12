@@ -1,0 +1,26 @@
+
+.perfil-container{
+    height: 100%;
+    min-height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFF;
+    color: white;
+}
+.perfil-content{
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+.perfil-title{
+    display: flex;
+    align-items: center;
+    color: black;
+}
+.btn-container-perfil{
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}

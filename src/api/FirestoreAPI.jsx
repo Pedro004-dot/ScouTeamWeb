@@ -8,8 +8,10 @@ import {
   updateDoc,
   query,
   where,
+  getDocs,
 
 } from 'firebase/firestore';
+import { useMemo } from 'react';
 
 let dbRef = collection(firestore, "posts")
 let userRef = collection(firestore, "users")
@@ -48,23 +50,30 @@ export const postUserData = (credentails)=>{
   addDoc(userRef,credentails).then(()=>{}).catch((err)=>console.log(err))
 }
 
-export const getCurrentUser = (setCurrentUser)=>{
-
-  const currEmail = localStorage.getItem('userEmail') 
-
-  onSnapshot(userRef,(response)=>{
-    setCurrentUser(
-      response.docs
-      .map((docs)=>{
-      return{...docs.data(), userID: docs.id}
-    }).filter((item)=>{
-    return item.email === currEmail
-    })[0]
-    )
+export const getCurrentUser = async (setCurrentUser, currEmail)=>{
+  try {
     
-  }
-  )
-}
+    let userRef = collection(firestore, "users")
+
+    const querySnapshot = await getDocs(userRef);
+
+    const user =  querySnapshot.docs
+      .map((doc) => ({
+        ...doc.data(),
+        userID: doc.id
+      }))
+      setCurrentUser(user.find((item)=>  item.email && currEmail ? item.email.toLowerCase() == currEmail.toLowerCase(): null))
+  
+    
+  } catch (error) {
+    console.error('Erro ao obter usuário:', error);
+    setCurrentUser(null);
+  } 
+};
+
+
+
+
 
 export const editProdile = (userID,payLoad)=>{
   let userToEdit = doc(userRef,userID)

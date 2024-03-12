@@ -19,7 +19,7 @@ export default function RegisterComponent() {
       email : credentails.email
       }) 
       localStorage.setItem("userEmail", credentails.email)
-      navigate("/")
+      navigate("/registro/escolhaPerfil")
     } catch (error) {
       alert(error.errors.message)
     }
@@ -27,28 +27,36 @@ export default function RegisterComponent() {
   }
   
  return (
-   <div className="register-wrapper" >
-     <h1>Register Component</h1>
-      <div className="auth-inputs" >
+   <div className="register-container">
+    <div className="register-wrapper" >
+    <div className="title" >
+      <h1>Bem-vindo(a) </h1>
+     <p className="subtitle" >Digite suas informações para começar</p>
+    </div>   
+      <div className="register-auth-inputs" >
+       <input onChange={(event)=>setCredentails({...credentails, email: event.target.value})}
+        className="commom-input"
+        placeholder="Email"
+        type="email"
+        />
+
       <input onChange={(event)=>setCredentails({...credentails, name: event.target.value})}
         className="commom-input"
         type="text"
-        placeholder="Entre com o nome"
-        />
-        <input onChange={(event)=>setCredentails({...credentails, email: event.target.value})}
-        className="commom-input"
-        placeholder="Entre com o email"
-        type="email"
-        />
+        placeholder=  "Nome"/>
+      
+     
         <input onChange={(event)=>setCredentails({...credentails, password: event.target.value})}
-        className="commom-input"
-        placeholder="Entre com a senha"
+        className="commom-input "
+        placeholder="Senha"
         type="password"
         />
+          
          <p>Ja tem uma conta ? <span onClick={()=> navigate("/")} >Clique aqui</span></p>
       </div>
      
-     <button className="register-btn" onClick={register}>Registrar</button>
+     <button className="botao" onClick={register}>Registrar</button>
+    </div>
    </div>
  );
 }

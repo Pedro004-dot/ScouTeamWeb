@@ -20,7 +20,6 @@ export default function ProfileCard({currentUser,onEdit}) {
         }
   },[])
   
-
  return (
   <>
     <div className="profile-card" >

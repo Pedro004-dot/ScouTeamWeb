@@ -30,28 +30,28 @@ export default function Header(){
                 <GoHome 
                  size={25} 
                  className="react-icon" 
-                 onClick={ ()=> goToRoute("/Home")}
+                 onClick={ ()=> goToRoute("/home")}
                   />
                 <FaRegUser 
                 size={25} 
                 className="react-icon" 
-                onClick={ ()=> goToRoute("/Profile")}
+                onClick={ ()=> goToRoute("/profile")}
                  />
                 <TiWatch 
                 size={25} 
                 className="react-icon"
-                 onClick={ ()=> goToRoute("/Noticias")}
+                 onClick={ ()=> goToRoute("/noticias")}
 
                  />
                 <FiClipboard 
                 size={25} 
                 className="react-icon" 
-                onClick={ ()=> goToRoute("/Atletas")}
+                onClick={ ()=> goToRoute("/atletas")}
                  />
                 <GoBell
                  size={25}
                   className="react-icon" 
-                  onClick={ ()=> goToRoute("/Notificacoes")}
+                  onClick={ ()=> goToRoute("/notificacoes")}
                    />
                 <img 
                  src={user}

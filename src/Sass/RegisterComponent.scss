@@ -1,5 +1,39 @@
-.login-btn{
-    width: 200px;
-    color:black;
-    cursor: pointer;
+.register-container{
+    min-height: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../assets/backGroundRegister-Desktop.jpg');
+    background-size: cover;
+    background-position: center; // Opcional: centraliza a imagem
+    color: white;
 }
+
+.register-wrapper{
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+.register-auth-inputs{
+    display: flex;
+    flex-direction: column;
+    p{
+        font-size: 20px;
+        color: #82858B;
+        span{
+            color: #A12400;
+        }
+    }
+}
+.title{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    .subtitle{
+        margin-top: -20px;
+    }
+}
+
+
+
+

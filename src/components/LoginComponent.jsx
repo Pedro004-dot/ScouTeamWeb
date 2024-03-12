@@ -34,33 +34,33 @@ export default function LoginComponent() {
   }
  return (
   
-   <div>
-   <h1 className="heading" >Login</h1>
-    <div className="login-wrapper" >
-     
-      <div className="auth-inputs" >
+   <div className="login-container" >
+    <div className="login-wrapper" >  
+    <div className="title" >
+      <h1>Login</h1>
+     <p className="subtitle" >Digite suas informações</p>
+    </div>  
+      <div className="login-auth-inputs" >
         <input
          onChange={(event)=>setCredentails({...credentails, email: event.target.value})}
         className="commom-input"
         placeholder="Entre com o email"
-        style={{ width: "150% " }}
         />
         <input 
         onChange={(event)=>setCredentails({...credentails, password: event.target.value})}
         className="commom-input"
         placeholder="Entre com a senha"
-        style={{ width: "150% " }}
         />
-        <p>Deseja criar uma conta? <span onClick={()=> navigate("/register")} >Clique aqui</span></p>
+        <p>Deseja criar uma conta? <span onClick={()=> navigate("/registro")} >Clique aqui</span></p>
          <button className="botao" onClick={login}>Login</button>
-         <hr></hr>
-         <div className="google-btn" >
-           <GoogleButton
-           onClick={googleSignIn}
-           />
-         </div>
+         <hr></hr>    
       </div>
    </div>
    </div>
  );
 }
+{/* <div className="google-btn" >
+           <GoogleButton
+           onClick={googleSignIn}
+           />
+         </div> */}

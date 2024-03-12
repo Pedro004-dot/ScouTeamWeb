@@ -1,0 +1,27 @@
+.atleta-container{
+    height: 100%;
+    min-height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFF;
+}
+.atleta-content{
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.atleta-title{
+    display: flex;
+    align-items: center;
+    color: black;
+}
+.posicoes, .caracteristicas {
+    margin-bottom: 20px;
+}
+.btn-container-atleta{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
