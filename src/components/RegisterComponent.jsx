@@ -4,28 +4,39 @@ import "../Sass/RegisterComponent.scss"
 import { useNavigate } from "react-router-dom";
 import { postUserData } from "../api/FirestoreAPI";
 import getUniqueID from "../helpers/getUniqueID"
+import { useDispatch } from "react-redux";
+import { loadUser } from "../redux/currentUser/sliceCurrentUser";
+import { toast } from "react-toastify";
 
 
 export default function RegisterComponent() {
-  const [credentails,setCredentails] = useState({})
+  const [credentails,setCredentails] = useState({}) 
   const navigate = useNavigate()
-  const register = async ()=>{
-    try {
-     const res = await  RegisterAPI(credentails.email,credentails.password)
-    
-     postUserData({
-      userID: getUniqueID(),
-      name : credentails.name ,
-      email : credentails.email
-      }) 
-      localStorage.setItem("userEmail", credentails.email)
-      navigate("/registro/escolhaPerfil")
-    } catch (error) {
-      alert(error.errors.message)
+  const userID = getUniqueID()
+  const dispatch = useDispatch()
+
+  const validateCredentials = () => {
+    if (
+      credentails.name.length < 5 ||
+      !credentails.email.includes("@")
+    ) {
+      toast.error("O nome deve ter pelo menos 5 letras e o email deve ser válido.");
+      return false;
     }
+     navigate("/registro/escolhaPerfil")
+    return true;
    
-  }
-  
+  };
+ 
+
+  dispatch(loadUser({
+        userID: userID,
+        name : credentails.name,
+        email : credentails.email,
+        password: credentails.password
+      }))
+
+
  return (
    <div className="register-container">
     <div className="register-wrapper" >
@@ -55,7 +66,7 @@ export default function RegisterComponent() {
          <p>Ja tem uma conta ? <span onClick={()=> navigate("/")} >Clique aqui</span></p>
       </div>
      
-     <button className="botao" onClick={register}>Registrar</button>
+     <button className="botao" onClick={validateCredentials}>Registrar</button>
     </div>
    </div>
  );

@@ -6,12 +6,13 @@ import Register from "../Pages/Register";
 import HomeLayout from "../layouts/HomeLayout"
 import ProfileLayout from "../layouts/ProfileLayout";
 import Erro from "../Pages/Erro";
-import Perfil from "../Pages/commom-pages/perfil";
 import Region from "../Pages/commom-pages/Region";
 import RegionState from "../Pages/commom-pages/RegionState";
 import PositionAtleta from "../Pages/commom-pages/Atleta/PositionAtleta";
 import CategoryClube from  "../Pages/commom-pages/Clube/CategoryClube"
 import CurrentClub from "../Pages/commom-pages/CurrentClub";
+import Perfil from "../Pages/commom-pages/perfil";
+import SaveProfile from "../Pages/commom-pages/saveProfile";
 
 export const router = createBrowserRouter([
     {
@@ -51,7 +52,7 @@ export const router = createBrowserRouter([
       path: "/registro/competicao/regiao",
       element: <Region/>
     },{
-      path: "/registro/empresario/region",
+      path: "/registro/empresario/regiao",
       element: <Region/>
     },
     {
@@ -60,6 +61,9 @@ export const router = createBrowserRouter([
     },{
       path: "/registro/treinador/estado",
       element: <RegionState/>
+    },{
+      path: "/registro/salvarInformacoes",
+      element: <SaveProfile/>
     },
 
 

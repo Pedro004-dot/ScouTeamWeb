@@ -3,8 +3,15 @@ import "./profileCard.scss"
 import {getSingleStatus, getSingleUser} from "../../../api/FirestoreAPI"
 import PostsCard from "../PostsCard/PostsCard";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export default function ProfileCard({currentUser,onEdit}) {
+
+
+
+export default function ProfileCard({onEdit}) {
+  const {user} = useSelector((rootReducer)=> rootReducer.user)  
+  
+
   const [allStatus,setAllStatus] = useState([])
   const [currentProfile,setCurrentProfile] = useState({})
   const location = useLocation();
@@ -26,34 +33,35 @@ export default function ProfileCard({currentUser,onEdit}) {
       <div className="edit-btn" >
        <button onClick={onEdit}>Editar</button>
      </div>
+     
      <div className="profile-info" >
      <div>
        <h3 className="userName" >
        {Object.values(currentProfile).length === 0 
-       ? currentUser.name
+       ? user.name
        : currentProfile?.name
        }
        </h3>
        <p className="descricao">
        {Object.values(currentProfile).length === 0 
-       ? currentUser.descricao
+       ? user.descricao
        : currentProfile?.descricao}
        </p>
        <p className="cidade">
        {Object.values(currentProfile).length === 0 
-       ? currentUser.cidade
+       ? user.cidade
        : currentProfile?.cidade}
        </p>
      </div>   
       <div className="right-info" >
        <p className="time">
        {Object.values(currentProfile).length === 0 
-       ? currentUser.time
+       ? user.time
        : currentProfile?.time}
        </p>
        <p className="posicao">
        {Object.values(currentProfile).length === 0 
-       ? currentUser.posicao
+       ? user.posicao
        : currentProfile?.posicao}
        </p>
        </div>

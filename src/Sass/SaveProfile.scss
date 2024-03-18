@@ -1,0 +1,16 @@
+.save-container{
+    height: 100%;
+    min-height: 650px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    background-color: #FFFF;
+    color: black;
+    flex-direction: column;
+}
+.save-modal{
+    background-color: whitesmoke;
+    min-height: 250px;
+    width: 500px;
+    text-align: center;
+}

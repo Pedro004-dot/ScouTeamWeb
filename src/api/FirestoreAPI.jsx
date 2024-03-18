@@ -73,10 +73,8 @@ export const getCurrentUser = async (setCurrentUser, currEmail)=>{
 
 
 
-
-
-export const editProdile = (userID,payLoad)=>{
-  let userToEdit = doc(userRef,userID)
+export const editProdile = async (userID,payLoad)=>{
+  let userToEdit = await doc(userRef,userID)
 
   updateDoc(userToEdit,payLoad)
   .then(()=>{
@@ -87,6 +85,19 @@ export const editProdile = (userID,payLoad)=>{
   })
   
 }
+
+// export const createProfile = (userID,payLoad)=>{
+//   let userToEdit = doc(userRef,userID)
+
+//   updateDoc(userToEdit,payLoad)
+//   .then(()=>{
+//     toast.success("Perfil salvo com sucesso")
+//   })
+//   .catch((err)=>{
+//     console.log(err)
+//   })
+  
+// }
 
 
 

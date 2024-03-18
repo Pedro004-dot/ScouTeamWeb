@@ -1,15 +1,18 @@
 import { useState } from "react";
 import "./profileEdit.scss"
 import { editProdile } from "../../../api/FirestoreAPI";
-export default function P0rofileEdit({onEdit,currentUser}) {
+import { useSelector } from "react-redux";
+export default function P0rofileEdit({onEdit}) {
+  const {user} = useSelector((rootReducer)=> rootReducer.user)
   const [editInputs,setEditInputs] = useState({})
   const getInput = (event)=>{
     let {name,value} = event.target;
     let input = {[name]:value }
     setEditInputs({...editInputs,...input})
   }
+  console.log(editInputs)
   const updateProdile = async ()=>{
-   await editProdile(currentUser?.userID,editInputs);
+   await editProdile(user?.userID,editInputs);
    await onEdit();
   }
 

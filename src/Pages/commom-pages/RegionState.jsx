@@ -3,9 +3,12 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { Autocomplete ,FormControl, FormHelperText } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadRegionState } from '../../redux/currentProfile/sliceCurrentProfile';
 
 
 export default function RegionState() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [estado,setEstado] = useState()
  
@@ -39,10 +42,8 @@ export default function RegionState() {
     "Tocantins"
 ]
 
-  const upToDataBase = ()=>{ 
-   let clube = localStorage.getItem("clubeAtual")
-   console.log(clube)
-  }
+  
+  
     return ( 
       <div className="perfil-container" >
      <div className="perfil-content" >
@@ -70,12 +71,15 @@ export default function RegionState() {
        <div className='btn-container-perfil' >
        <button
         onClick={()=>
-       { if(estado!== undefined && estado!== null){
-           upToDataBase()
-           navigate("/home") 
+       { if(estado){
+        dispatch(loadRegionState({
+          regionState : estado
+        }))
+        toast.success(`Você selecionou o estado ${estado}`)
+           navigate("/registro/salvarInformacoes") 
            
         }else{
-          toast.error('Você precisa selecionar um perfil') }
+          toast.error('Você precisa selecionar um estado') }
         }}
         className='botao'
          >      

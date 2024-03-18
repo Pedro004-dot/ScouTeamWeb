@@ -3,9 +3,12 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { Autocomplete ,FormControl, FormLabel, FormHelperText } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadTeam } from '../../redux/currentProfile/sliceCurrentProfile';
 
 
 export default function CurrentClub(){
+  const dispatch = useDispatch()
   const [clube,setClube] = useState()
  
   const clubes = [
@@ -61,11 +64,14 @@ export default function CurrentClub(){
         </FormControl>
        <div className='btn-container-perfil' >
        <button
-        onClick={()=>{ if (clube !== undefined && clube !== null ){
+        onClick={()=>{ if (clube){
+        dispatch(loadTeam({
+          team : clube
+        }))
+        toast.success(`Você selecionou o clube ${clube}`)
         navigate("/registro/atleta/estado")
-        localStorage.setItem("clubeAtual",clube)
          }else{
-           toast.error('Você precisa selecionar um perfil')
+           toast.error('Você precisa selecionar um clube')
         }
         
        } }

@@ -4,23 +4,37 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { loadProfile } from '../../redux/currentProfile/sliceCurrentProfile';
 export default function Perfil() {
+    const dispatch = useDispatch()
     const perfis = ["Agente","Atleta","Clube","Competição","Treinador"]
-    const [perfil,setPerfil] = useState()
+    const [perfil,setPerfil] = useState(null)
     const navigate = useNavigate()
 
-    const mediador = (perfil)=>{
-        switch (perfil) {
-            case "Agente":
-                console.log("Agente")
-                break;
-                case "Atleta":
-                    navigate("/registro/atleta/posicao")
-                    break;
-            default:
-                break;
-        }
+   const mediador = (profile)=>{
+    switch(profile) {
+      case "Agente":
+        navigate("/registro/empresario/regiao")
+        break;
+      case "Atleta":
+        navigate("/registro/atleta/posicao")
+        break;
+      case "Clube":
+        navigate("registro/clube/estado")
+        break;
+      case "Competição":
+        navigate("/registro/competicao/regiao")
+        break;
+      case "Treinador":
+        navigate("/registro/treinador/clube")
+        break;
+      default:
+        toast.error('Perfil invalido') 
+        
     }
+   }
+    
  return (
    <div className="perfil-container" >
      <div className="perfil-content" >
@@ -42,6 +56,7 @@ export default function Perfil() {
         sx={{ width: 300 }}
         onChange={(event, newValue) => {
         setPerfil(newValue);
+       
       }}
         />      
         <FormHelperText>
@@ -50,9 +65,20 @@ export default function Perfil() {
         </FormControl>
        <div className='btn-container-perfil' >
        <button
-        onClick={()=> perfil !== (undefined || null) ?
-        mediador(perfil) : 
-        toast.error('Você precisa selecionar um perfil') }
+        onClick={()=> {
+         
+          if(!perfil){
+         return  toast.error('Você precisa selecionar um perfil') 
+        }
+        dispatch(loadProfile({
+         perfil: perfil,
+        }))
+        mediador(perfil)
+         toast.success(`Você selecionou o perfil ${perfil}`) 
+        // return navigate("/registro/atleta/posicao")
+        }
+        
+        }
         className='botao'
          >      
         Próxima
@@ -60,7 +86,6 @@ export default function Perfil() {
        </div>
       
      </div>
-     
    </div>
  );
 }

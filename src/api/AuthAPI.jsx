@@ -9,14 +9,17 @@ export const LoginAPI = async (email,password)=>{
         alert(error.errors.message)
     }    
 };
+
 export const RegisterAPI = async (email,password)=>{
-    try {
-      let response =  await createUserWithEmailAndPassword(auth,email,password)
-      console.log(response)
-    } catch (error) {
-        alert(error.errors.message)
-    }    
+  try {
+    let response =  await createUserWithEmailAndPassword(auth,email,password)
+    console.log(response)
+  } catch (error) {
+      alert(error.errors.message)
+  }    
 };
+
+
 export const GoogleSignInAPI = async ()=>{
   try {
     let googleProvider =  new GoogleAuthProvider()

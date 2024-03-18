@@ -4,8 +4,12 @@ import { Autocomplete ,FormControl, FormLabel, FormHelperText } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import "../../../Sass/PositionAtleta.scss"
+import { useDispatch } from 'react-redux';
+import { loadPosition } from '../../../redux/currentProfile/sliceCurrentProfile';
+
 
 export default function PositionAtleta(){
+  const dispatch = useDispatch()
   const [posicao,setPosição] = useState([])
   const [caracteristica,setCaracteristica] = useState([])
   const navigate = useNavigate()
@@ -106,7 +110,6 @@ export default function PositionAtleta(){
      sx={{ width: 300 }}
      getOptionLabel={(option) => option.label}
      isOptionEqualToValue={(option, value) => option.id === value.id}
-
      onChange={(event, newValue) => {
      setCaracteristica(newValue);
      
@@ -120,9 +123,18 @@ export default function PositionAtleta(){
      
     <div className='btn-container-atleta' >
     <button
-     onClick={()=> posicao.length && caracteristica.length > 0  ?
-     navigate("/registro/atleta/clube") : 
-     toast.error('Você precisa selecionar algo') } 
+     onClick={()=>{
+      
+      if(!posicao && !caracteristica){      
+     return toast.error('Você precisa selecionar algo') 
+     }
+
+     dispatch(loadPosition({
+         posicao: posicao,
+         caracteristica : caracteristica ,
+        }))
+      navigate("/registro/atleta/clube") 
+      }}
      className='botao'
       >     
        
