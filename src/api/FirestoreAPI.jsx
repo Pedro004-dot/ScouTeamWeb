@@ -9,12 +9,15 @@ import {
   query,
   where,
   getDocs,
+  setDoc,
+  deleteDoc,
 
 } from 'firebase/firestore';
-import { useMemo } from 'react';
+
 
 let dbRef = collection(firestore, "posts")
 let userRef = collection(firestore, "users")
+let likeRef = collection(firestore,"likes")
 
 export const PostStatus = async (object)=>{
     try {
@@ -112,3 +115,38 @@ export const getSingleUser = async (setCurrentUser, email) =>{
   })
 
 }
+
+export const LikePost = async (userID, postID,liked)=>{
+ try {
+  let docToLike = await doc(likeRef,`${userID}_${postID}`)
+  if(liked){
+    await deleteDoc(docToLike)
+  }else{
+    await setDoc(docToLike,{userID,postID})
+  }
+  
+ } catch (error) {
+  console.log(error)
+ }
+}
+
+export const getLikesByUser = async (userID,postID,setLiked,setLikesCount)=>{
+  try {
+   let likeQuery = query(likeRef,where("postID","==",postID))
+
+   onSnapshot(likeQuery,(response)=>{
+    let likes = response.docs.map((doc)=>doc.data())
+    let likesCount = likes.length;
+
+    const isLiked = likes.some((Like)=> Like.userID === userID)
+
+    setLikesCount(likesCount)
+
+    setLiked(isLiked)
+    
+
+  })
+  } catch (error) {
+   console.log(error)
+  }
+ }

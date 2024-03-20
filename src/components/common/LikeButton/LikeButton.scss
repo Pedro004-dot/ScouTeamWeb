@@ -1,0 +1,12 @@
+.like-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    cursor: pointer;
+    p{
+        font-weight: 600;
+        color: rgba(0,0,0,0.835);
+        font-size:14px;
+    };
+}

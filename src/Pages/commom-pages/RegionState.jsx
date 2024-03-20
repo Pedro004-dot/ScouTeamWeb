@@ -1,13 +1,14 @@
 import { toast } from 'react-toastify';
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { Autocomplete ,FormControl, FormHelperText } from '@mui/joy';
+import { Autocomplete ,FormControl, FormHelperText} from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadRegionState } from '../../redux/currentProfile/sliceCurrentProfile';
 
 
 export default function RegionState() {
+  const {profile} = useSelector((rootReducer)=> rootReducer.profile)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [estado,setEstado] = useState()
@@ -42,6 +43,21 @@ export default function RegionState() {
     "Tocantins"
 ]
 
+  const handleTitle = ()=>{
+    if(profile.perfil === "Clube"){
+      return "Selecione o estado do clube"
+    }else{
+      return "Selecione seu estado de origem"
+    }
+  }
+  const handleHelperText = ()=>{
+    if(profile.perfil === "Clube"){
+      return "Mostre aos atletas e aos treinadores o estado da sua base"
+    }else{
+      return  "Apresente a clubes e empresarios o seu estado de origem."
+    }
+  }
+ 
   
   
     return ( 
@@ -51,10 +67,12 @@ export default function RegionState() {
          <h1 className='perfil-title' > <FaArrowLeftLong 
          size={18} 
          color={"#A12400"} 
-         onClick={()=> navigate("/registro/atleta/posicao")}
+         onClick={()=> navigate("/registro/escolhaPerfil")}
          style={{marginRight:"15"}}
-         /> Selecione seu estado</h1>
+         /> 
+         {handleTitle()}</h1>
         <FormControl>
+        
         <Autocomplete
         className='autocomplete'
         placeholder='Selecione aqui seu estado'
@@ -65,7 +83,7 @@ export default function RegionState() {
       }}
         />      
         <FormHelperText>
-            É importante para clubes e empresarios<br/> saberem onde você mora.
+           {handleHelperText()}
         </FormHelperText>
         </FormControl>
        <div className='btn-container-perfil' >

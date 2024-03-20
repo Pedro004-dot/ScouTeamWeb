@@ -5,6 +5,7 @@ import { FormHelperText } from "@mui/joy";
 import{  postUserData }from "../../api/FirestoreAPI"
 import { RegisterAPI } from "../../api/AuthAPI";
 import getUniqueID from "../../helpers/getUniqueID";
+import { FaArrowLeftLong } from "react-icons/fa6";
 export default function SaveProfile() {
   const {profile} = useSelector((rootReducer)=> rootReducer.profile)
   const {user} = useSelector((rootReducer)=> rootReducer.user) 
@@ -36,7 +37,12 @@ export default function SaveProfile() {
  return ( 
   
    <div className="save-container" >
-   <h1>Salvar informações</h1>
+   <h1><FaArrowLeftLong 
+         size={20} 
+         color={"#A12400"} 
+         onClick={()=> navigate("/registro/escolhaPerfil")}
+         style={{marginRight:"15"}}
+         /> Salvar informações</h1>
    <div className="save-modal" >
    <h3 >Confira as informações</h3>
    {profile.perfil ? (

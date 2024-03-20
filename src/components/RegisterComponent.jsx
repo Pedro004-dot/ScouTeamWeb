@@ -1,8 +1,6 @@
 import { useState } from "react";
-import {RegisterAPI } from "../api/AuthAPI";
 import "../Sass/RegisterComponent.scss"
 import { useNavigate } from "react-router-dom";
-import { postUserData } from "../api/FirestoreAPI";
 import getUniqueID from "../helpers/getUniqueID"
 import { useDispatch } from "react-redux";
 import { loadUser } from "../redux/currentUser/sliceCurrentUser";

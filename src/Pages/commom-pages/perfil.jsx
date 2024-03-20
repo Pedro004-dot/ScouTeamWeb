@@ -21,7 +21,7 @@ export default function Perfil() {
         navigate("/registro/atleta/posicao")
         break;
       case "Clube":
-        navigate("registro/clube/estado")
+        navigate("/registro/clube/estado")
         break;
       case "Competição":
         navigate("/registro/competicao/regiao")
