@@ -18,6 +18,7 @@ import {
 let dbRef = collection(firestore, "posts")
 let userRef = collection(firestore, "users")
 let likeRef = collection(firestore,"likes")
+let commenstRef = collection(firestore,"comments")
 
 export const PostStatus = async (object)=>{
     try {
@@ -148,5 +149,35 @@ export const getLikesByUser = async (userID,postID,setLiked,setLikesCount)=>{
   })
   } catch (error) {
    console.log(error)
+  }
+ }
+
+ export const postComment = (postId,comment,timeStamp)=>{
+  try {
+    addDoc(commenstRef,{
+      postId,
+      comment,
+      timeStamp
+    })
+  } catch (error) {
+    console.log(error)
+  }
+ }
+
+ export const getComments = (postId,setComments)=>{
+  try {
+    let singlePostQuery = query(commenstRef, where("postId", "==", postId))
+
+    onSnapshot(singlePostQuery, (response)=>{
+      const comments = response.docs.map((doc)=>{
+        return{
+          id: doc.id,
+          ...doc.data(),
+        }
+      }); 
+      setComments(comments)
+    })
+  } catch (error) {
+    console.log(error)
   }
  }

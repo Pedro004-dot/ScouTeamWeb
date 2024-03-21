@@ -1,12 +1,61 @@
 .like-container{
     display: flex;
-    align-items: center;
-    gap: 10px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
     padding: 7px 10px;
     cursor: pointer;
+    margin-bottom: -20px;
+
+    .like-comment{
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+    
+    .comment-input{
+        height: 35px;
+        background-color: whitesmoke;
+        padding-left: 10px;
+        border-radius: 20px;
+        border: 1px solid #737373;
+        font-size: 16px;
+        color: #949494;
+    }
+    .comment-input:focus {
+        outline: 1px solid #949494;
+        color: #949494;
+    }
+
     p{
         font-weight: 600;
-        color: rgba(0,0,0,0.835);
-        font-size:14px;
+        color: rgba(58,58,58,0.835);
+        font-size:12px;
+        margin-left: 5px;
+        
     };
+    .hr-line{
+        hr{
+             margin-top: -17px;
+             color: rgba(181,181,181);
+        }
+       
+    }
+    
 }
+.likes-inner{
+        display: flex;
+        align-items: center;
+        margin-top: -20px;
+        .blue{
+            color : #0a66c2;
+        }
+        .black{
+            color : rgba(58,58,58,0.835);
+        }
+        p{
+            font-weight: 600;
+            color: rgba(58,58,58,0.835);
+            font-size:16px;
+           
+        }
+    }
