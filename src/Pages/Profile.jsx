@@ -4,6 +4,11 @@ import {auth} from "../firebaseConfig"
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/common/Loader/Loader";
 import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
+Profile.propTypes = {
+    currentUser: PropTypes.func,
+    
+};
 export default function Profile({currentUser}){
     const [loading,setLoading] = useState(true)
     const navigate = useNavigate()

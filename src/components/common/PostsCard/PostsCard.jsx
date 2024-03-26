@@ -3,6 +3,20 @@ import './PostsCard.scss'
 import LikeButton from '../LikeButton/LikeButton';
 import { useMemo, useState } from 'react';
 import {getCurrentUser} from '../../../api/FirestoreAPI'
+import PropTypes from 'prop-types';
+
+PostsCard.propTypes = {
+    id: PropTypes.number,
+    posts: PropTypes.shape({
+      userEmail: PropTypes.string,
+      userID: PropTypes.string,
+      postID: PropTypes.string,
+      name: PropTypes.string,
+      status: PropTypes.string,
+      timeStamp: PropTypes.string,
+    }),
+};
+
 export default function PostsCard({posts,id}) {
   const navigate = useNavigate()
   const emailAtual = localStorage.getItem("userEmail")
@@ -25,7 +39,7 @@ export default function PostsCard({posts,id}) {
    {posts.timeStamp} </p>
    <p className='status'>
    {posts.status} </p>
-   <LikeButton  userID={currentUser?.userID} postID={posts?.postID} />
+   <LikeButton  userID={currentUser?.userID} postID={posts?.postID}  currentUser={currentUser}/>
    </div>
  );
 }

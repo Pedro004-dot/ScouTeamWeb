@@ -1,8 +1,13 @@
 import { useState } from "react";
 import ProfileCard from "./common/ProfileCard/profileCard";
 import ProfileEdit from "./common/ProfileEdit/profileEdit";
+import PropTypes from 'prop-types';
+ProfileComponent.propTypes = {
+  currentUser: PropTypes.func,
+  
+};
 
-export default function ProfileComponent() {
+export default function ProfileComponent({currentUser}) {
   const [isEdit,setIsEdit] = useState(false);
 
   const onEdit = ()=>{
@@ -13,7 +18,7 @@ export default function ProfileComponent() {
       { isEdit ? 
       <ProfileEdit  onEdit = {onEdit} /> 
       :
-      <ProfileCard  onEdit = {onEdit}
+      <ProfileCard  currentUser={currentUser} onEdit = {onEdit}
        />}
    </div>
  );

@@ -40,8 +40,8 @@ export const getStatus = (setAllStatus)=>{
     }))
   })
 }
-export const getSingleStatus = async (setAllStatus, id) => {
-  const singlePostQuery =  query(dbRef ,where("userID", "==",id));
+export const getSingleStatus = async (setAllStatus, email) => {
+  const singlePostQuery =  query(dbRef ,where("userEmail", "==",email));
   onSnapshot(singlePostQuery, (response)=>{
     setAllStatus(
     response.docs.map((docs)=>{
@@ -51,7 +51,9 @@ export const getSingleStatus = async (setAllStatus, id) => {
   });
 };
 export const postUserData = (credentails)=>{
-  addDoc(userRef,credentails).then(()=>{}).catch((err)=>console.log(err))
+  addDoc(userRef,credentails)
+  .then(()=>{})
+  .catch((err)=>console.log(err))
 }
 
 export const getCurrentUser = async (setCurrentUser, currEmail)=>{
@@ -152,12 +154,13 @@ export const getLikesByUser = async (userID,postID,setLiked,setLikesCount)=>{
   }
  }
 
- export const postComment = (postId,comment,timeStamp)=>{
+ export const postComment = (postId,comment,timeStamp,name)=>{
   try {
     addDoc(commenstRef,{
       postId,
       comment,
-      timeStamp
+      timeStamp,
+      name
     })
   } catch (error) {
     console.log(error)

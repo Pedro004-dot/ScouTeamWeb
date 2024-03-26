@@ -4,7 +4,18 @@ import "./LikeButton.scss"
 import { FcLike,FcLikePlaceholder } from "react-icons/fc";
 import { AiOutlineComment } from "react-icons/ai";
 import {getCurrentTimeStamp} from '../../../helpers/useMoment'
-export default function LikeButton({userID, postID}) {
+import PropTypes from 'prop-types';
+
+LikeButton.propTypes = {
+    userID: PropTypes.number,
+    postID: PropTypes.number,
+    currentUser: PropTypes.shape({
+        userID: PropTypes.string,
+        name: PropTypes.string, // Assumindo que 'name' é uma propriedade necessária do objeto currentUser
+        // Você pode adicionar outras propriedades necessárias aqui
+    }),
+};
+export default function LikeButton({ postID, currentUser}) {
 
     const [likesCount, setLikesCount]= useState(0)
     const [liked,setLiked]= useState(false)
@@ -18,17 +29,17 @@ export default function LikeButton({userID, postID}) {
     }
 
     const addComment = ()=>{
-        postComment(postID, comment, getCurrentTimeStamp('LLL'))
+        postComment(postID, comment, getCurrentTimeStamp('LLL'), currentUser?.name)
         setComment('')
     }
     const handleLike = ()=>{
-        LikePost(userID,postID,liked)
+        LikePost(currentUser.userID,postID,liked)
     }
 
     useMemo(()=>{
-        getLikesByUser(userID, postID,setLiked,setLikesCount)
+        getLikesByUser(currentUser.userID, postID,setLiked,setLikesCount)
         getComments(postID,setComments)
-    },[userID,postID])
+    },[currentUser.userID,postID])
 
     const countLike = (count)=> {
         if(count === 1  ){
@@ -39,7 +50,7 @@ export default function LikeButton({userID, postID}) {
             return null
         }
     }
-
+    
  return (
    <div className="like-container" >
 
@@ -65,7 +76,9 @@ export default function LikeButton({userID, postID}) {
       <div className="likes-inner" onClick={()=> {
         showCommentBox ? SetShowCommentBox(false) : SetShowCommentBox(true)
       }} >
-       <AiOutlineComment size={22} className={showCommentBox ? "blue" : "black"} />
+       <AiOutlineComment
+        size={22}
+        className={showCommentBox ? "blue" : "black"} />
           
           <p className={showCommentBox ? "blue" : "black"}>Comment</p>
 
@@ -85,12 +98,15 @@ export default function LikeButton({userID, postID}) {
           onClick={addComment}
            >
            Publicar comentário </button>
-          {console.log(comments)}
            {comments.length > 0 ? comments.map((comment)=> {
             return(
-                <div key={comment.id}>
-                    <p>{comment.comment}</p>
-                    <p>{comment.timeStamp}</p>
+                <div 
+                className="all-comments"
+                key={comment.id}>
+                    <p className="comment-name" >{comment.name}</p>
+                    <p className="comment">{comment.comment}</p>
+                    
+                    <p className="time-stamp">{comment.timeStamp}</p>
                    
                 </div>
             )

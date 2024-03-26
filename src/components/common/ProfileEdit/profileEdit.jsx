@@ -2,6 +2,11 @@ import { useState } from "react";
 import "./profileEdit.scss"
 import { editProdile } from "../../../api/FirestoreAPI";
 import { useSelector } from "react-redux";
+import PropTypes from 'prop-types';
+P0rofileEdit.propTypes = {
+  onEdit: PropTypes.func,
+    
+};
 export default function P0rofileEdit({onEdit}) {
   const {user} = useSelector((rootReducer)=> rootReducer.user)
   const [editInputs,setEditInputs] = useState({})
