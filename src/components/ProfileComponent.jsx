@@ -3,7 +3,7 @@ import ProfileCard from "./common/ProfileCard/profileCard";
 import ProfileEdit from "./common/ProfileEdit/profileEdit";
 import PropTypes from 'prop-types';
 ProfileComponent.propTypes = {
-  currentUser: PropTypes.func,
+  currentUser: PropTypes.object,
   
 };
 

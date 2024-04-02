@@ -61,6 +61,7 @@ export default function Header(){
                  style={{ cursor: "pointer" }}           
                  />
              </div>
+             
              {isPopUpOpen && <ProfilePopUp 
               onClose={handleClosePopUp} 
               

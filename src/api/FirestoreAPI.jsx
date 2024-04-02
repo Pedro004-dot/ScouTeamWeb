@@ -40,6 +40,19 @@ export const getStatus = (setAllStatus)=>{
     }))
   })
 }
+
+export const getAllUsers = (setAllUsers)=>{
+  try {
+    onSnapshot(userRef,(response)=>{
+      setAllUsers(response.docs.map((docs)=>{
+        return{...docs.data(), id : docs.id}
+      }))
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const getSingleStatus = async (setAllStatus, email) => {
   const singlePostQuery =  query(dbRef ,where("userEmail", "==",email));
   onSnapshot(singlePostQuery, (response)=>{
@@ -50,6 +63,7 @@ export const getSingleStatus = async (setAllStatus, email) => {
   );
   });
 };
+
 export const postUserData = (credentails)=>{
   addDoc(userRef,credentails)
   .then(()=>{})
@@ -58,8 +72,6 @@ export const postUserData = (credentails)=>{
 
 export const getCurrentUser = async (setCurrentUser, currEmail)=>{
   try {
-    
-    let userRef = collection(firestore, "users")
 
     const querySnapshot = await getDocs(userRef);
 
@@ -184,3 +196,26 @@ export const getLikesByUser = async (userID,postID,setLiked,setLikesCount)=>{
     console.log(error)
   }
  }
+
+export const updatePost = async (postID,status)=>{
+  let docToUpdate = doc(dbRef,postID);
+  try {
+     await updateDoc(docToUpdate,{status})
+     toast.success("Post editado com sucesso")
+
+  } catch (error) {
+    toast.error("Não foi possivel editar este post")
+    console.log(error)
+  }
+}
+export const deletePost = async (postID)=>{
+  let docToDelete = doc(dbRef,postID);
+  try {
+     await deleteDoc(docToDelete)
+     toast.success("Post deletado com sucesso")
+
+  } catch (error) {
+    toast.error("Não foi possivel deletar este post")
+    console.log(error)
+  }
+}

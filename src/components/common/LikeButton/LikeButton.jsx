@@ -7,8 +7,8 @@ import {getCurrentTimeStamp} from '../../../helpers/useMoment'
 import PropTypes from 'prop-types';
 
 LikeButton.propTypes = {
-    userID: PropTypes.number,
-    postID: PropTypes.number,
+    userID: PropTypes.string,
+    postID: PropTypes.string,
     currentUser: PropTypes.shape({
         userID: PropTypes.string,
         name: PropTypes.string, // Assumindo que 'name' é uma propriedade necessária do objeto currentUser

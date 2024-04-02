@@ -4,6 +4,12 @@ import Button from "../Button/button";
 import "./ProfilePopUp.scss"
 import { useMemo, useState } from "react";
 import {getCurrentUser} from "../../../api/FirestoreAPI"
+import PropTypes from 'prop-types';
+
+ProfilePopUp.propTypes = {
+    onClose: PropTypes.func,
+    
+};
 export default function ProfilePopUp({ onClose }) {
   const navigate = useNavigate();
   const [currentUser,setCurrentUser] = useState({})

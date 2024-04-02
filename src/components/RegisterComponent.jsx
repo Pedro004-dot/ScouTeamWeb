@@ -1,18 +1,17 @@
 import { useState } from "react";
 import "../Sass/RegisterComponent.scss"
 import { useNavigate } from "react-router-dom";
-import getUniqueID from "../helpers/getUniqueID"
 import { useDispatch } from "react-redux";
 import { loadUser } from "../redux/currentUser/sliceCurrentUser";
 import { toast } from "react-toastify";
+import getUniqueID from "../helpers/getUniqueID";
 
 
 export default function RegisterComponent() {
   const [credentails,setCredentails] = useState({}) 
   const navigate = useNavigate()
-  const userID = getUniqueID()
   const dispatch = useDispatch()
-
+  const userID = getUniqueID()
   const validateCredentials = () => {
     if (
       credentails.name.length < 5 ||
@@ -27,7 +26,7 @@ export default function RegisterComponent() {
   };
  
 
-  dispatch(loadUser({
+  dispatch(loadUser({    
         userID: userID,
         name : credentails.name,
         email : credentails.email,

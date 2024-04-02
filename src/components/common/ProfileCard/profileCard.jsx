@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { uploadImage as uploadImageAPI} from "../../../api/ImageUpload"
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
+import FileUploadModal from "../FileUploadModal/FileUploadModal";
 ProfileCard.propTypes = {
     onEdit: PropTypes.func,
     
@@ -18,13 +19,20 @@ export default function ProfileCard({onEdit}) {
   const [allStatus,setAllStatus] = useState([])
   const [currentProfile,setCurrentProfile] = useState({})
   const [currentImage, setCurrentImage] = useState({})
+  const [progress,setProgress] = useState(0)
+  const [modalOpen, setModalOpen] = useState(false)
 
   const getImage = (image)=>{
     setCurrentImage(image.target.files[0])
   }
-  const uploadImage = ()=>{
-    uploadImageAPI(currentImage,user?.userID)
-  }
+  const uploadImage = async ()=>{
+    await uploadImageAPI(
+      currentImage,
+      user?.userID,
+      setModalOpen,
+      setProgress,
+      setCurrentImage,
+      )}
   
 
   useEffect(() => {
@@ -46,28 +54,46 @@ export default function ProfileCard({onEdit}) {
   
  return (
   <>
+  <FileUploadModal 
+   modalOpen={modalOpen} 
+   setModalOpen={setModalOpen}
+   uploadImage={uploadImage} 
+   getImage={getImage}
+   currentImage={currentImage}
+   progress={progress}
+   setProgress={setProgress}
+   />
     <div className="profile-card" >
-    <input className="botao" type="file" onChange={getImage}/>
-    <button className="botao"onClick={uploadImage}>Upload</button>
+    
       <div className="edit-btn" >
        <button onClick={onEdit}>Editar</button>
      </div>
      
      <div className="profile-info" >
      <div>
-
-     <img
+     {currentProfile?.imageLink === undefined 
+     ? (<div>
+      <label 
+      className="label-addImage"
+      onClick={()=>setModalOpen(true)} >
+       Adicionar Imagem
+       </label>
+         
+     </div>)
+       : ( <img
       className="profile-image"
-      src={currentProfile?.imageLink}
+      src={currentProfile?.imageLink }
+      onClick={()=>setModalOpen(true)}
       alt="imagem-perfil"
-      />
+      />)}
+    
 
        <h3 className="userName" >
        {currentProfile.length === 0 
        ? null : 
        currentProfile.name}
        </h3>
-       
+
        <p className="descricao">
        {currentProfile.length === 0 
        ? null 

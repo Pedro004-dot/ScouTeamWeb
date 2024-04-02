@@ -6,7 +6,7 @@ import Loader from "../components/common/Loader/Loader";
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 Profile.propTypes = {
-    currentUser: PropTypes.func,
+    currentUser: PropTypes.object,
     
 };
 export default function Profile({currentUser}){

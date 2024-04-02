@@ -5,10 +5,14 @@ import { getCurrentUser } from "../api/FirestoreAPI";
 
 export default function HomeLayouts() {
   const [currentUser,setCurrentUser] = useState({})
+
+  
     const currEmail = localStorage.getItem('userEmail') 
     useEffect(()=>{
         getCurrentUser(setCurrentUser,currEmail)
     },[])
+
+
  return (
    <div>
    <Header/>

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { FormHelperText } from "@mui/joy";
 import{  postUserData }from "../../api/FirestoreAPI"
 import { RegisterAPI } from "../../api/AuthAPI";
-import getUniqueID from "../../helpers/getUniqueID";
 import { FaArrowLeftLong } from "react-icons/fa6";
 export default function SaveProfile() {
   const {profile} = useSelector((rootReducer)=> rootReducer.profile)
@@ -15,17 +14,18 @@ export default function SaveProfile() {
   const register = async ()=>{
     try {
      const res = await  RegisterAPI(user.email,user.password)
-     const userID = getUniqueID()
+     
+     
      postUserData({
-      userID: userID,
+      userID: user.userID,
       name : user.name ,
       email : user.email,
       perfil : profile.perfil,
       team: profile.team ? profile.team : null,
       region: profile.region ? profile.region : null,
       regionState: profile.regionState ? profile.regionState : null,
-      características: profile.características ? profile.características : null,
-      posição: profile.posição ? profile.posição : null,
+      características: profile.caracteristica ? profile.caracteristica : null,
+      posição: profile.posicao  ? profile.posicao  : null,
       })
      
       localStorage.setItem("userEmail", user.email)
