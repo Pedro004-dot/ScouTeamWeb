@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "./profileCard.scss"
 import {  getSingleStatus, getSingleUser} from "../../../api/FirestoreAPI"
 import PostsCard from "../PostsCard/PostsCard";
-
 import { useLocation } from "react-router-dom";
 import { uploadImage as uploadImageAPI} from "../../../api/ImageUpload"
 import { useSelector } from "react-redux";
@@ -109,17 +108,19 @@ export default function ProfileCard({onEdit}) {
      </div>   
       <div className="right-info" >
 
-       <p className="time">
-       {currentProfile.length === 0 
-       ? null 
-       : currentProfile.team}
-       </p>
-
-       <p className="perfil">
+      <p className="perfil">
        {currentProfile.length === 0
         ? null 
         : currentProfile.perfil}
        </p>
+       
+       <p className="time">
+       {currentProfile.length === 0 
+       ? null 
+       : `Time: ${currentProfile.team}`}
+       </p>
+
+      
 
        <p className="posicao">
        {currentProfile.length === 0

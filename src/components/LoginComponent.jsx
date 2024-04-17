@@ -50,6 +50,7 @@ export default function LoginComponent() {
         onChange={(event)=>setCredentails({...credentails, password: event.target.value})}
         className="commom-input"
         placeholder="Entre com a senha"
+        type="password"
         />
         <p>Deseja criar uma conta? <span onClick={()=> navigate("/registro")} >Clique aqui</span></p>
          <button className="botao" onClick={login}>Login</button>

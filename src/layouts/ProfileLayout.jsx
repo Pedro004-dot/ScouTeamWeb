@@ -23,7 +23,7 @@ export default function ProfileLayout(){
 
     return(
         <div>
-            <Header/>
+            <Header currentUser={currentUser}/>
             <Profile currentUser={currentUser} />       
         </div>
     )

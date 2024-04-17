@@ -19,6 +19,7 @@ let dbRef = collection(firestore, "posts")
 let userRef = collection(firestore, "users")
 let likeRef = collection(firestore,"likes")
 let commenstRef = collection(firestore,"comments")
+let connectionRef = collection(firestore,"connections")
 
 export const PostStatus = async (object)=>{
     try {
@@ -145,28 +146,28 @@ export const LikePost = async (userID, postID,liked)=>{
  }
 }
 
-export const getLikesByUser = async (userID,postID,setLiked,setLikesCount)=>{
-  try {
-   let likeQuery = query(likeRef,where("postID","==",postID))
+  export const getLikesByUser = async (userID,postID,setLiked,setLikesCount)=>{
+    try {
+    let likeQuery = await query(likeRef,where("postID","==",postID))
 
-   onSnapshot(likeQuery,(response)=>{
-    let likes = response.docs.map((doc)=>doc.data())
-    let likesCount = likes.length;
+      onSnapshot(likeQuery,(response)=>{
+      let likes = response.docs.map((doc)=>doc.data())
+      let likesCount = likes.length;
 
-    const isLiked = likes.some((Like)=> Like.userID === userID)
+      const isLiked = likes.some((Like)=> Like.userID === userID)
 
-    setLikesCount(likesCount)
+      setLikesCount(likesCount)
 
-    setLiked(isLiked)
-    
+      setLiked(isLiked)
+      
 
-  })
-  } catch (error) {
-   console.log(error)
+    })
+    } catch (error) {
+    console.log(error)
+    }
   }
- }
 
- export const postComment = (postId,comment,timeStamp,name)=>{
+ export const postComment = async (postId,comment,timeStamp,name)=>{
   try {
     addDoc(commenstRef,{
       postId,
@@ -219,3 +220,34 @@ export const deletePost = async (postID)=>{
     console.log(error)
   }
 }
+export const addConnection = async (userID, targetID)=>{
+  try {
+
+   let connectionToAdd = doc(connectionRef,`${userID}_${targetID}`)
+    
+   await setDoc(connectionToAdd,{userID,targetID})
+
+   toast.success("Conexão feita com sucesso")
+  } catch (error) {
+   console.log(error)
+  }
+ }
+
+
+export const getConnections = async (userID, targetID,setIsConnected)=>{
+  try {
+   let connectionQuery = await query(connectionRef,where("targetID","==",targetID))
+
+    onSnapshot(connectionQuery,(response)=>{
+    let connections = response.docs.map((doc)=>doc.data())
+    
+    const isConnected = connections.some((connection)=> connection.userID === userID)
+
+    setIsConnected(isConnected)
+    
+
+  })
+  } catch (error) {
+   console.log(error)
+  }
+ }

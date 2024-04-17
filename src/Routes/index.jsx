@@ -13,7 +13,7 @@ import CategoryClube from  "../Pages/commom-pages/Clube/CategoryClube"
 import CurrentClub from "../Pages/commom-pages/CurrentClub";
 import Perfil from "../Pages/commom-pages/perfil";
 import SaveProfile from "../Pages/commom-pages/saveProfile";
-
+import ConnectionsLayout from "../layouts/ConnectionsLayout"
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -64,6 +64,9 @@ export const router = createBrowserRouter([
     },{
       path: "/registro/salvarInformacoes",
       element: <SaveProfile/>
+    },{
+      path: "/conexoes",
+      element: <ConnectionsLayout/>
     },
 
 

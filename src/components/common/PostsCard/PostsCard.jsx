@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import './PostsCard.scss'
 import LikeButton from '../LikeButton/LikeButton';
-import { useMemo, useState } from 'react';
-import {getAllUsers, getCurrentUser} from '../../../api/FirestoreAPI'
+import { useEffect, useMemo, useState } from 'react';
+import {getAllUsers, getConnections, getCurrentUser} from '../../../api/FirestoreAPI'
 import PropTypes from 'prop-types';
 import { MdOutlineModeEdit, MdOutlineDelete } from "react-icons/md";
 
@@ -26,21 +26,32 @@ export default function PostsCard({posts,id,getEditData,deleteStatus}) {
   const emailAtual = localStorage.getItem("userEmail")
   const [currentUser,setCurrentUser] = useState({});
   const [allUsers,setAllUsers] = useState([])
-
+  const [isConnected, setIsConnected] = useState(false)
    
 
   useMemo(async()=>{
     await getCurrentUser(setCurrentUser,emailAtual)
     await getAllUsers(setAllUsers)
   },[])
-  
- return (
+
+  useEffect(()=>{
+    getConnections(currentUser.userID, posts.userID, setIsConnected)
+  },[currentUser.userID, posts.userID])
+
+
+ return isConnected || currentUser.userID === posts.userID ? (
   <div className='posts-card'  key={id}>
     <div className='post-image-wrapper'>
     { posts.userID === currentUser.userID ?
       ( <div className='action-container' >
-          <MdOutlineModeEdit size={20} className='action-icon' onClick={()=>getEditData(posts)} />
-          <MdOutlineDelete size={20}  className='action-icon' onClick={()=> deleteStatus(posts)}/>
+          <MdOutlineModeEdit 
+           size={20}
+           className='action-icon' 
+           onClick={()=>getEditData(posts)} />
+          <MdOutlineDelete 
+           size={20} 
+           className='action-icon'
+           onClick={()=> deleteStatus(posts)}/>
         </div> ):null
     }
        
@@ -56,6 +67,11 @@ export default function PostsCard({posts,id,getEditData,deleteStatus}) {
               state : {id: posts?.userID, email : posts.userEmail
             }})}>
             {posts.name} </p>
+
+            <p className='headlineStamp'>
+          {allUsers.filter((user)=> user.id === posts.userID)[0]?.perfil} </p>
+
+
           <p className='timeStamp'>
           {posts.timeStamp} </p>
        </div>
@@ -64,7 +80,10 @@ export default function PostsCard({posts,id,getEditData,deleteStatus}) {
    
    <p className='status'>
    {posts.status} </p>
-   <LikeButton  userID={currentUser?.userID} postID={posts?.postID}  currentUser={currentUser}/>
+   <LikeButton  
+   userID={currentUser?.userID}
+   postID={posts?.postID} 
+   currentUser={currentUser}/>
   </div>
- );
+ ) :<></>
 }

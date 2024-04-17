@@ -8,12 +8,18 @@
     width: 800px;
     height: 120px;
     background-color: whitesmoke;
-    margin-top: 115px;
+    margin-top: 50px;
     border: 1px solid #b7b7b7;
     border-radius: 7px;
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-content: space-around;
+    .post-image{
+        width: 50px;
+        height: 50px;
+        margin: 10px;
+    }
     .open-post-modal{
         width: 80%;
         height: 50px;
@@ -31,5 +37,32 @@
     .open-post-modal:hover{
         background-color: #dcdbdb;
           cursor: pointer;
+    }
+}
+.user-details{
+    width: 800px;
+    min-height: 150px;
+    background-color: whitesmoke;
+    margin-top: 160px;
+    border: 1px solid #b7b7b7;
+    border-radius: 7px;  
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #b7b7b7;
+      padding: 5px;
+      margin-top: -80px;
+    }
+    .name-profile{
+        font-weight: 600;
+    }
+    .headline-profile{
+        margin-top: -15px;
     }
 }

@@ -15,7 +15,7 @@ export default function HomeLayouts() {
 
  return (
    <div>
-   <Header/>
+   <Header currentUser={currentUser} />
    <Home  currentUser={currentUser} />
    </div>
  );

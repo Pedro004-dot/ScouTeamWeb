@@ -8,8 +8,43 @@
     background-color: rgba(255,255 ,255,255);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around; 
+    
 }
+.topbar-left{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+    
+}
+.input-search{
+    display: flex;
+    align-items: center;
+    .search{
+        width: 260px;
+        height: 20px;
+        background-color: whitesmoke;
+        border: 1px solid #bbbbbb;
+        color: black;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        margin-left: 50px;
+        outline: none;
+        
+    }
+    .close-icon{
+        color: #b7b7b7;
+       
+    }
+.search:focus{
+    width: 290px;
+    border: 1px solid #FF0000;
+}
+   
+}
+
 .logo{
     width: 80px;
     margin-left: 20px;
@@ -30,12 +65,53 @@
 .user-logo{
     width: 40px;
     position: absolute;
-    right: 10px;
+    right: 250px;
     cursor: pointer;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #b7b7b7;
+    padding: 1px;
 }
 .popup-position{
     position: absolute;
-    right: 10px;
+    right: 500px;
     top: 65px;
     z-index: 99;
+}
+.search-results{
+    position: absolute;
+    left: 406px;
+    top: 80px;
+    width: 300px;
+    min-height: 20px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 10px;
+    align-items: center;
+    .close-search-results{
+        position: absolute;
+        right: 10px;
+    }
+    .search-inner{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding: 10px;
+    img{
+        width: 40px;
+        height: 40px;
+        border-radius:50% ;
+        object-fit: cover;
+    }
+   }
+   .search-name-user{
+    
+   }
+   .search-resume-user{
+    font-size: 12px;
+   }
+}
+.search-inner:hover{
+    background-color:#b7b7b7;
 }

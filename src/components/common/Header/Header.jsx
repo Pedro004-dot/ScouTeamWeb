@@ -1,20 +1,37 @@
 import "./Header.scss"
-import { GoHome } from "react-icons/go";
-import { FaRegUser } from "react-icons/fa";
-import { TiWatch } from "react-icons/ti";
-import { FiClipboard } from "react-icons/fi";
-import { GoBell } from "react-icons/go";
-import user from "../../../assets/user.png"
+
+import { GoBell, GoSearch,GoHome,GoPeople,GoGlobe  } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import ProfilePopUp from "../ProfilePopUp/ProfilePopUp";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import SearchUsers from "../SearchUsers/SearchUsers";
+import PropTypes from 'prop-types';
+import { GoXCircle } from "react-icons/go";
+import { getAllUsers } from "../../../api/FirestoreAPI";
+Header.propTypes = {
+    currentUser: PropTypes.object,
+    
+};
 
-export default function Header(){
+export default function Header({currentUser}){
+  
+    // const [isSearch, setIsSearch] = useState(false)
     const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [searchInput,setSearchInput] = useState("")
+    const [isOpen, setIsOpen] = useState(false);
+    const searchContainerRef = useRef(null);
+    const [users,setUsers] = useState([])
+    const [filteredUsers, setFilteredUsers] = useState([])
     const navigate = useNavigate()
+
+    const closeSearch = ()=>{
+        return setIsOpen(false) && setSearchInput(" ")
+    }
+
     const goToRoute = (route)=>{
         navigate(route)
     }
+
     const handleLogout = () => {
         setIsPopUpOpen(true);
       };
@@ -23,30 +40,62 @@ export default function Header(){
         setIsPopUpOpen(false);
       };
 
+      const openUser = (user) => {
+        setIsOpen(false); // Garante que o dropdown será fechado
+        navigate('/profile', { state: { id: user.userID, email: user.email } });
+    };
+
+ 
+    
+    useEffect(()=>{
+        getAllUsers(setUsers)
+    },[])
+    useEffect(() => {
+        const debouncedSearch = setTimeout(() => {
+            if (searchInput.length !== 0) {
+                const searched = users.filter(user =>
+                    Object.values(user).join('').toLowerCase().includes(searchInput.toLowerCase())
+                );
+                setFilteredUsers(searched);
+            } else {
+                setFilteredUsers(users);
+            }
+        }, 500);
+
+        return () => clearTimeout(debouncedSearch);
+    }, [searchInput, users]);
     return(
         <div className="topbar-main">
-             <p className="logo">SCOUT<br/>TEAM</p>
+        <div className="topbar-left" ref={searchContainerRef}> 
+            <p className="logo">SCOUT<br/>TEAM</p>
+             <SearchUsers setSearchInput={setSearchInput} setIsOpen={setIsOpen}/>
+        </div>
+             
              <div className="react-icons" >
                 <GoHome 
                  size={25} 
                  className="react-icon" 
                  onClick={ ()=> goToRoute("/home")}
                   />
-                <FaRegUser 
+                <GoSearch
+                 size={25} 
+                 className="react-icon" 
+                 />
+                {/* <FaRegUser 
                 size={25} 
                 className="react-icon" 
                 onClick={ ()=> goToRoute("/profile")}
-                 />
-                <TiWatch 
+                 /> */}
+                <GoGlobe
                 size={25} 
                 className="react-icon"
-                 onClick={ ()=> goToRoute("/noticias")}
+                onClick={ ()=> goToRoute("/noticias")}
 
                  />
-                <FiClipboard 
+                <GoPeople
                 size={25} 
                 className="react-icon" 
-                onClick={ ()=> goToRoute("/atletas")}
+                onClick={ ()=> goToRoute("/conexoes")}
                  />
                 <GoBell
                  size={25}
@@ -54,18 +103,37 @@ export default function Header(){
                   onClick={ ()=> goToRoute("/notificacoes")}
                    />
                 <img 
-                 src={user}
+                 src={currentUser.imageLink}
                  alt="user" 
                  className="user-logo"
                  onClick={handleLogout}
                  style={{ cursor: "pointer" }}           
                  />
+                 
              </div>
+            
+            {isOpen && (
+                <div className="search-results">
+                <div><GoXCircle onClick={()=> closeSearch()} className="close-search-results"/> </div>
+                    {filteredUsers.length === 0 ? (
+                        <div>  <p>Nenhum resultado encontrado</p>
+                    </div>
+                     ): filteredUsers.map((user)=>(
+                        <div key={user.id} className="search-inner" onClick={()=> openUser(user)} >
+                     
+                        <img src={user.imageLink} />
+                        <p className="search-name-user">{user.name}</p>  
+                        <p className="search-resume-user">{user.perfil} </p>
+                         
+                        </div>
+                    ))}
+                </div>
+            )}
              
-             {isPopUpOpen && <ProfilePopUp 
-              onClose={handleClosePopUp} 
-              
-              />}
+           {isPopUpOpen && <ProfilePopUp 
+            onClose={handleClosePopUp} 
+            
+            />}
         </div>
     )
 }

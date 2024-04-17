@@ -20,7 +20,7 @@ export default function PostUpdate({ currentUser }) {
   const [allStatus,setAllStatus] = useState([])
   const [isEdit,setIsEdit] = useState(false)
   const [currentPost, setCurrentPost] = useState({})
-
+ 
 
  
 
@@ -34,6 +34,7 @@ export default function PostUpdate({ currentUser }) {
   const updateStatus = ()=>{
     updatePost(currentPost.id, status)
     setModalOpen(false)
+    setStatus("")
   }
 
   const deleteStatus = (posts)=>{
@@ -57,10 +58,31 @@ export default function PostUpdate({ currentUser }) {
   useMemo(()=>{
     getStatus(setAllStatus)
   },[])
-  
+
+
+ 
+
+  const handleResumeProfile = (perfil)=>{
+    if(perfil == "Atleta" || perfil == "Treinador"){
+      return ` do ${currentUser.team}`
+    }
+  }
  return (
    <div className="post-status-main" >
+
+    <div className="user-details">
+
+    <img src={currentUser.imageLink} alt="imagem-perfil"/>
+     <p className="name-profile" >{currentUser.name}</p>
+     <p className="headline-profile" >{currentUser.perfil}{handleResumeProfile(currentUser.perfil)}</p>
+    </div>
+
      <div className="post-status" >
+
+     <img className="post-image" 
+     src={currentUser.imageLink}
+      alt="imagem-perfil"/>
+
       <button 
       className="open-post-modal"
        onClick={()=> {
