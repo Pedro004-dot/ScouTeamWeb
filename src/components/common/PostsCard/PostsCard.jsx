@@ -17,6 +17,7 @@ PostsCard.propTypes = {
       name: PropTypes.string,
       status: PropTypes.string,
       timeStamp: PropTypes.string,
+      postImage: PropTypes.string,
       
     }),
 };
@@ -80,6 +81,8 @@ export default function PostsCard({posts,id,getEditData,deleteStatus}) {
    
    <p className='status'>
    {posts.status} </p>
+   {posts?.postImage ? <img  src={posts.postImage} className='post-image-feed'/> : <></>}
+
    <LikeButton  
    userID={currentUser?.userID}
    postID={posts?.postID} 

@@ -6,4 +6,19 @@
     font-size: 16px;
     font-family: system-ui, sans-serif;
     width: 100%;
+    resize: none;
+}
+.picture-icon{
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+}
+.post-image-upload{
+    width: 100%;
+}
+.posts-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

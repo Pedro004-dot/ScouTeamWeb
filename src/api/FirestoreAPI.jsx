@@ -198,10 +198,10 @@ export const LikePost = async (userID, postID,liked)=>{
   }
  }
 
-export const updatePost = async (postID,status)=>{
+export const updatePost = async (postID,status,postImage)=>{
   let docToUpdate = doc(dbRef,postID);
   try {
-     await updateDoc(docToUpdate,{status})
+     await updateDoc(docToUpdate,{status,postImage})
      toast.success("Post editado com sucesso")
 
   } catch (error) {

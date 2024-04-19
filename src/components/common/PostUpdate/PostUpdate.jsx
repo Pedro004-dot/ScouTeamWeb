@@ -6,7 +6,7 @@ import ModalComponent from "../Modal/Modal";
 import PostsCard from "../PostsCard/PostsCard";
 import "./PostUpdate.scss"
 import { useState, useMemo} from "react";
-
+import {uploadPostImage} from "../../../api/ImageUpload"
 
 import PropTypes from 'prop-types';
 
@@ -20,26 +20,7 @@ export default function PostUpdate({ currentUser }) {
   const [allStatus,setAllStatus] = useState([])
   const [isEdit,setIsEdit] = useState(false)
   const [currentPost, setCurrentPost] = useState({})
- 
-
- 
-
-  // let userEmail = localStorage.getItem('userEmail')
-  const getEditData = (posts)=>{
-    setModalOpen(true)
-    setStatus(posts?.status)
-    setCurrentPost(posts)
-    setIsEdit(true)
-  }
-  const updateStatus = ()=>{
-    updatePost(currentPost.id, status)
-    setModalOpen(false)
-    setStatus("")
-  }
-
-  const deleteStatus = (posts)=>{
-    deletePost(posts.id)
-  }
+  const [postImage, setPostImage] = useState('')
 
   const sendStatus= async ()=>{
     let object = {
@@ -48,13 +29,33 @@ export default function PostUpdate({ currentUser }) {
       userID : currentUser.userID,
       userEmail : currentUser.email,
       name: currentUser.name,
-      postID: getUniqueID()
-  }
+      postID: getUniqueID(),
+      postImage: postImage,
+  };
+
    await PostStatus(object)
    await setModalOpen(false)
    await setStatus("")
    setIsEdit(false)
+  };
+ 
+  const getEditData = (posts)=>{
+    setModalOpen(true)
+    setStatus(posts?.status)
+    setCurrentPost(posts)
+    setIsEdit(true)
   }
+  const updateStatus = ()=>{
+    updatePost(currentPost.id, status, postImage)
+    setModalOpen(false)
+    setStatus("")
+  }
+
+  const deleteStatus = (posts)=>{
+    deletePost(posts.id)
+  }
+
+
   useMemo(()=>{
     getStatus(setAllStatus)
   },[])
@@ -100,7 +101,11 @@ export default function PostUpdate({ currentUser }) {
      sendStatus ={sendStatus}
      isEdit={isEdit}
      updateStatus={updateStatus} 
-     
+     uploadPostImage={uploadPostImage}
+     setPostImage={setPostImage}
+     postImage={postImage}
+     currentPost={currentPost}
+     setCurrentPost={setCurrentPost}
      />
       <div >
       {allStatus.map((posts)=>{
