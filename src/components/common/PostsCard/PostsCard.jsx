@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {getAllUsers, getConnections, getCurrentUser} from '../../../api/FirestoreAPI'
 import PropTypes from 'prop-types';
 import { MdOutlineModeEdit, MdOutlineDelete } from "react-icons/md";
+import { Modal } from 'antd';
 
 PostsCard.propTypes = {
     id: PropTypes.number,
@@ -28,6 +29,7 @@ export default function PostsCard({posts,id,getEditData,deleteStatus}) {
   const [currentUser,setCurrentUser] = useState({});
   const [allUsers,setAllUsers] = useState([])
   const [isConnected, setIsConnected] = useState(false)
+  const [imageModal, setImageModal] = useState(false)
    
 
   useMemo(async()=>{
@@ -55,7 +57,6 @@ export default function PostsCard({posts,id,getEditData,deleteStatus}) {
            onClick={()=> deleteStatus(posts)}/>
         </div> ):null
     }
-       
           <img
           alt='profile-image'
           className='post-image'
@@ -81,12 +82,34 @@ export default function PostsCard({posts,id,getEditData,deleteStatus}) {
    
    <p className='status'>
    {posts.status} </p>
-   {posts?.postImage ? <img  src={posts.postImage} className='post-image-feed'/> : <></>}
+   {posts?.postImage ? 
 
-   <LikeButton  
-   userID={currentUser?.userID}
-   postID={posts?.postID} 
-   currentUser={currentUser}/>
+      <img  
+      src={posts.postImage} 
+      onClick={()=>setImageModal(true)}
+      className='post-image-feed'
+      alt='post-image'
+      /> 
+      : <></>}
+
+      <LikeButton  
+      userID={currentUser?.userID}
+      postID={posts?.postID} 
+      currentUser={currentUser}/>
+        <Modal
+          centered
+          open={imageModal} 
+          onOk={() => setImageModal(false)} 
+          onCancel={() => setImageModal(false)}
+          footer={[]}
+          >
+              <img
+                alt='profile-image'
+                onClick={()=>setImageModal(true)}
+                className='post-image-feed'
+                src={posts.postImage}
+              />
+            </Modal>
   </div>
  ) :<></>
 }

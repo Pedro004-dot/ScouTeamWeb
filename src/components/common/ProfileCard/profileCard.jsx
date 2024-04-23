@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./profileCard.scss"
-import {  getSingleStatus, getSingleUser} from "../../../api/FirestoreAPI"
+import {  getSingleStatus, getSingleUser, getConnections, deleteConnection, addConnection} from "../../../api/FirestoreAPI"
 import PostsCard from "../PostsCard/PostsCard";
 import { useLocation } from "react-router-dom";
 import { uploadImage as uploadImageAPI} from "../../../api/ImageUpload"
 import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import FileUploadModal from "../FileUploadModal/FileUploadModal";
+import { Button} from "antd";
 ProfileCard.propTypes = {
     onEdit: PropTypes.func,
     
@@ -20,11 +21,13 @@ export default function ProfileCard({onEdit}) {
   const [currentImage, setCurrentImage] = useState({})
   const [progress,setProgress] = useState(0)
   const [modalOpen, setModalOpen] = useState(false)
-
+  const [isConnected, setIsConnected] = useState(false)
+  
   const getImage = (image)=>{
     setCurrentImage(image.target.files[0])
   }
   const uploadImage = async ()=>{
+    
     await uploadImageAPI(
       currentImage,
       user?.userID,
@@ -32,7 +35,15 @@ export default function ProfileCard({onEdit}) {
       setProgress,
       setCurrentImage,
       )}
-  
+
+      
+      
+      const addConnections = ()=>{
+        addConnection(user.userID, location.state.id)
+      }
+      const deleteConnections = ()=>{
+        deleteConnection(user.userID, location.state.id, setIsConnected)
+      }
 
   useEffect(() => {
     if (location?.state?.email ) {
@@ -50,7 +61,13 @@ export default function ProfileCard({onEdit}) {
     }
 
   }, []);
-  
+
+  useEffect(() => {
+    if (user?.userID && location?.state?.id) {
+        getConnections(user.userID, location.state.id, setIsConnected);
+    }
+}, [user?.userID, location?.state?.id]); 
+
  return (
   <>
   <FileUploadModal 
@@ -99,11 +116,20 @@ export default function ProfileCard({onEdit}) {
        : currentProfile.descricao}
        </p>
 
+
+
        <p className="cidade">
        {currentProfile.length === 0
        ? null 
        : currentProfile.regionState}
        </p>
+
+       {
+        isConnected === true ?
+         (<Button type="primary" onClick={()=> deleteConnections()}> Conectado  </Button>)
+         : <Button type="primary" onClick={()=> addConnections()} > Conectar </Button>
+       }
+        
 
      </div>   
       <div className="right-info" >
@@ -146,6 +172,3 @@ export default function ProfileCard({onEdit}) {
    
  );
 }
-// .filter((item)=>{
-//   return item.userEmail === localStorage.getItem('userEmail')
-// })

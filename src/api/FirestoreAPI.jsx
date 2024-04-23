@@ -236,7 +236,11 @@ export const addConnection = async (userID, targetID)=>{
 
 export const getConnections = async (userID, targetID,setIsConnected)=>{
   try {
-   let connectionQuery = await query(connectionRef,where("targetID","==",targetID))
+    let connectionQuery = query(
+      connectionRef,
+      where("targetID", "==", targetID),
+      where("userID", "==", userID)  
+  );
 
     onSnapshot(connectionQuery,(response)=>{
     let connections = response.docs.map((doc)=>doc.data())
@@ -245,9 +249,33 @@ export const getConnections = async (userID, targetID,setIsConnected)=>{
 
     setIsConnected(isConnected)
     
-
+    
   })
   } catch (error) {
    console.log(error)
   }
  }
+
+ export const deleteConnection = async (userID, targetID, setIsConnected) => {
+  try {
+    const connectionQuery = query(
+      connectionRef,
+      where("userID", "==", userID),
+      where("targetID", "==", targetID)
+    );
+
+    const querySnapshot = await getDocs(connectionQuery);
+
+    if (!querySnapshot.empty) {
+      for (const document of querySnapshot.docs) {
+        await deleteDoc(document.ref);
+      }
+      toast.success("Desconectado com sucesso");
+      setIsConnected(false);
+    } else {
+      toast.error("Não foi possível desconectar");
+    }
+  } catch (error) {
+    toast.error("Não foi possível desconectar");
+  }
+};

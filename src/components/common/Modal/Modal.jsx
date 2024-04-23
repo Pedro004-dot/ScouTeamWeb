@@ -3,7 +3,6 @@ import "./Modal.scss"
 import { GoFileMedia } from "react-icons/go";
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-
 ModalComponent.propTypes = {
     modalOpen: PropTypes.bool,
     setModalOpen: PropTypes.func,
@@ -74,6 +73,8 @@ export default function ModalComponent({
             onChange={(event)=>setStatus(event.target.value)}
             value={status}
         />
+      
+
         <div className="progress-bar" >
              { progress === 0 || progress === 100
         ? (<> </> )
