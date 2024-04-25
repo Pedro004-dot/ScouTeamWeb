@@ -20,6 +20,7 @@ let userRef = collection(firestore, "users")
 let likeRef = collection(firestore,"likes")
 let commenstRef = collection(firestore,"comments")
 let connectionRef = collection(firestore,"connections")
+let championshipRef = collection(firestore,"championship")
 
 export const PostStatus = async (object)=>{
     try {
@@ -104,21 +105,6 @@ export const editProdile = async (userID,payLoad)=>{
   })
   
 }
-
-// export const createProfile = (userID,payLoad)=>{
-//   let userToEdit = doc(userRef,userID)
-
-//   updateDoc(userToEdit,payLoad)
-//   .then(()=>{
-//     toast.success("Perfil salvo com sucesso")
-//   })
-//   .catch((err)=>{
-//     console.log(err)
-//   })
-  
-// }
-
-
 
 export const getSingleUser = async (setCurrentUser, email) =>{
   const singleUserQuery = await query(userRef, where("email", "==", email));
@@ -279,3 +265,15 @@ export const getConnections = async (userID, targetID,setIsConnected)=>{
     toast.error("Não foi possível desconectar");
   }
 };
+
+export const addChampionship = async (params)=>{
+  try {
+      const response = await addDoc(championshipRef, params);
+      response ? toast.success("Campeonato criado com sucesso "): null
+    } catch (error) {
+      error ? toast("Erro ao adicionar post:", error.message): null;
+
+      console.error("Detalhes do erro:", error.errors);
+    }
+      
+}

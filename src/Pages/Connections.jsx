@@ -3,7 +3,6 @@ import {onAuthStateChanged} from "firebase/auth"
 import {auth} from "../firebaseConfig"
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/common/Loader/Loader";
-import "../Sass/Home.scss"
 import ConnectionsComponent from "../components/ConnectionsComponent";
 import PropTypes from 'prop-types';
 Connections.propTypes = {

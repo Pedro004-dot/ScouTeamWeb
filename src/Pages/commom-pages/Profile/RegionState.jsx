@@ -4,7 +4,7 @@ import { Autocomplete ,FormControl, FormHelperText} from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadRegionState } from '../../redux/currentProfile/sliceCurrentProfile';
+import { loadRegionState } from '../../../redux/currentProfile/sliceCurrentProfile';
 
 
 export default function RegionState() {

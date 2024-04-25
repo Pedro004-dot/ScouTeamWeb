@@ -1,14 +1,14 @@
 import { Autocomplete ,FormControl, FormLabel, FormHelperText } from '@mui/joy';
-import "../../Sass/Perfil.scss"
+import "../../../Sass/Perfil.scss"
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { loadProfile } from '../../redux/currentProfile/sliceCurrentProfile';
+import { loadProfile } from '../../../redux/currentProfile/sliceCurrentProfile';
 export default function Perfil() {
     const dispatch = useDispatch()
-    const perfis = ["Agente","Atleta","Clube","Competição","Treinador"]
+    const perfis = ["Agente","Atleta","Clube","Organizador de campeonatos","Treinador"]
     const [perfil,setPerfil] = useState(null)
     const navigate = useNavigate()
 
@@ -23,7 +23,7 @@ export default function Perfil() {
       case "Clube":
         navigate("/registro/clube/estado")
         break;
-      case "Competição":
+      case "Organizador de campeonatos":
         navigate("/registro/competicao/regiao")
         break;
       case "Treinador":
@@ -75,7 +75,7 @@ export default function Perfil() {
         }))
         mediador(perfil)
          toast.success(`Você selecionou o perfil ${perfil}`) 
-        // return navigate("/registro/atleta/posicao")
+        
         }
         
         }

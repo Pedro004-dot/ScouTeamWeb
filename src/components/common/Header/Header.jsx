@@ -8,6 +8,7 @@ import SearchUsers from "../SearchUsers/SearchUsers";
 import PropTypes from 'prop-types';
 import { GoXCircle } from "react-icons/go";
 import { getAllUsers } from "../../../api/FirestoreAPI";
+import { GoTrophy } from "react-icons/go";
 Header.propTypes = {
     currentUser: PropTypes.object,
     
@@ -45,7 +46,7 @@ export default function Header({currentUser}){
         navigate('/profile', { state: { id: user.userID, email: user.email } });
     };
 
- 
+     
     
     useEffect(()=>{
         getAllUsers(setUsers)
@@ -77,15 +78,7 @@ export default function Header({currentUser}){
                  className="react-icon" 
                  onClick={ ()=> goToRoute("/home")}
                   />
-                <GoSearch
-                 size={25} 
-                 className="react-icon" 
-                 />
-                {/* <FaRegUser 
-                size={25} 
-                className="react-icon" 
-                onClick={ ()=> goToRoute("/profile")}
-                 /> */}
+                  
                 <GoGlobe
                 size={25} 
                 className="react-icon"
@@ -97,6 +90,17 @@ export default function Header({currentUser}){
                 className="react-icon" 
                 onClick={ ()=> goToRoute("/conexoes")}
                  />
+                 {
+                    currentUser.perfil === "Organizador de campeonatos" ? 
+                <GoTrophy
+                 size={25} 
+                 className="react-icon" 
+                 onClick={ ()=> goToRoute("/competicoes")}
+                 />: <GoSearch
+                 size={25} 
+                 className="react-icon" 
+                 />
+                  }
                 <GoBell
                  size={25}
                   className="react-icon" 

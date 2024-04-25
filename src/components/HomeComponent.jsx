@@ -1,5 +1,4 @@
 import PostUpdate from "./common/PostUpdate/PostUpdate";
-import "../Sass/HomeComponent.scss"
 import PropTypes from 'prop-types';
 HomeComponent.propTypes = {
     currentUser: PropTypes.object,

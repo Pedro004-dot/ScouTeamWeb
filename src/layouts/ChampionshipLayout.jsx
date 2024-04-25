@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import Header from "../components/common/Header/Header"
-import Connections from "../Pages/Connections";
-import { getCurrentUser } from "../api/FirestoreAPI";
 
-export default function ConnectionsLayout() {
+import { getCurrentUser } from "../api/FirestoreAPI";
+import Championship from "../Pages/Championship";
+
+export default function ChampionshipLayout() {
 
   const[currentUser,setCurrentUser] = useState({})
 
@@ -17,7 +17,7 @@ export default function ConnectionsLayout() {
  return (
    <div>
    <Header currentUser={currentUser}/>
-   <Connections currentUser={currentUser} />
+   <Championship currentUser={currentUser} />
    </div>
  );
 }

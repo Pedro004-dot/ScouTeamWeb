@@ -4,7 +4,7 @@ import { Autocomplete ,FormControl, FormLabel, FormHelperText } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadTeam } from '../../redux/currentProfile/sliceCurrentProfile';
+import { loadTeam } from '../../../redux/currentProfile/sliceCurrentProfile';
 
 
 export default function CurrentClub(){

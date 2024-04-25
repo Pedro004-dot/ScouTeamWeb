@@ -3,7 +3,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { Autocomplete ,FormControl, FormHelperText, FormLabel } from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { loadRegion} from '../../redux/currentProfile/sliceCurrentProfile';
+import { loadRegion} from '../../../redux/currentProfile/sliceCurrentProfile';
 import { useDispatch, useSelector } from 'react-redux';
 export default function Region() {
   const {profile} = useSelector((rootReducer)=> rootReducer.profile)

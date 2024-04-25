@@ -6,14 +6,17 @@ import Register from "../Pages/Register";
 import HomeLayout from "../layouts/HomeLayout"
 import ProfileLayout from "../layouts/ProfileLayout";
 import Erro from "../Pages/Erro";
-import Region from "../Pages/commom-pages/Region";
-import RegionState from "../Pages/commom-pages/RegionState";
-import PositionAtleta from "../Pages/commom-pages/Atleta/PositionAtleta";
-import CategoryClube from  "../Pages/commom-pages/Clube/CategoryClube"
-import CurrentClub from "../Pages/commom-pages/CurrentClub";
-import Perfil from "../Pages/commom-pages/perfil";
-import SaveProfile from "../Pages/commom-pages/saveProfile";
+import Region from "../Pages/commom-pages/Profile/Region";
+import RegionState from "../Pages/commom-pages/Profile/RegionState";
+import PositionAtleta from "../Pages/commom-pages/Profile/PositionAtleta";
+import CategoryClube from  "../Pages/commom-pages/Profile/CategoryClube"
+import CurrentClub from "../Pages/commom-pages/Profile/CurrentClub";
+import Perfil from "../Pages/commom-pages/Profile/perfil";
+import SaveProfile from "../Pages/commom-pages/Profile/saveProfile";
 import ConnectionsLayout from "../layouts/ConnectionsLayout"
+import ChampionshipLayout from "../layouts/ChampionshipLayout";
+import CreateChampionship from "../Pages/commom-pages/Championship/CreateChampionship";
+
 export const router = createBrowserRouter([
     {
       path: "/",
@@ -28,6 +31,9 @@ export const router = createBrowserRouter([
     },{
       path: "/profile",
       element : <ProfileLayout/>
+    },{
+      path: "/competicoes",
+      element: <ChampionshipLayout/>
     },{
       path: "/registro/escolhaPerfil",
       element: <Perfil/>
@@ -68,6 +74,11 @@ export const router = createBrowserRouter([
       path: "/conexoes",
       element: <ConnectionsLayout/>
     },
+    {
+      path: "/criarcampeonato",
+      element: <CreateChampionship/>
+    },
+    
 
 
     {

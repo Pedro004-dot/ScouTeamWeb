@@ -1,0 +1,36 @@
+// Championship.scss
+.championship-main {
+    padding: 20px;
+    color: #333; // Substitua pela cor de texto desejada
+    text-align: center;
+  
+    h2 {
+      margin-bottom: 20px; // Espaço abaixo do título
+    }
+  
+    .help-text {
+      margin-bottom: 40px; // Espaço abaixo do texto de ajuda
+      color: #666; // Substitua pela cor de texto secundário desejada
+    }
+  
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px; // Espaço entre os botões
+  
+      .button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px; // Arredondamento dos botões
+        background-color: #008CBA; // Substitua pela cor de fundo do botão desejada
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #005f73; // Cor de fundo ao passar o mouse
+        }
+      }
+    }
+  }
+  

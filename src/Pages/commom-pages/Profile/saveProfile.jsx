@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import "../../Sass/SaveProfile.scss"
+import "../../../Sass/SaveProfile.scss"
 import { useNavigate } from "react-router-dom";
 import { FormHelperText } from "@mui/joy";
-import{  postUserData }from "../../api/FirestoreAPI"
-import { RegisterAPI } from "../../api/AuthAPI";
+import{  postUserData }from "../../../api/FirestoreAPI"
+import { RegisterAPI } from "../../../api/AuthAPI";
 import { FaArrowLeftLong } from "react-icons/fa6";
 export default function SaveProfile() {
   const {profile} = useSelector((rootReducer)=> rootReducer.profile)
