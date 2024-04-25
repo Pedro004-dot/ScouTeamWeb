@@ -9,37 +9,42 @@
       background: #fff; // Cor de fundo do formulário
       padding: 40px;
       border-radius: 8px;
-      width: 600px; // Ajuste para a largura desejada
-  
-      h1 {
-        margin-bottom: 24px;
-        text-align: center; // Centralizar título
-      }
-  
-      .inputs-createChampionship {
-        display: grid;
-        grid-gap: 20px; // Espaço entre os campos
-  
-        .MuiInput-root {
-          // Estilização dos inputs
-        }
-  
-        .MuiButtonBase-root {
-          // Estilização do botão de submissão
-          width: 100%;
-          padding: 10px;
-          margin-top: 20px; // Espaço acima do botão
-          background-color: #4CAF50; // Cor do botão
-          color: white; // Cor do texto do botão
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 16px;
-          &:hover {
-            background-color: #45a049; // Cor do botão ao passar o mouse
-          }
-        }
-      }
+      width: 600px; // Ajuste para a largura desejada   
+    }
+    .name-championship{
+      width: 100%;
+      height: 50px;
+    }
+    .date-createChampionship{
+      margin-top:20px;
+      width: 100%;
+    }
+    .location-createChampionship{
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+    .local-createChampionship{
+      width: 50%;
+    }
+    .area-button-createChampionship{
+      display: flex;
+      justify-content:right;
+      align-items:center;
+      margin-top: 10px;
+    }
+    .button-createChampionship{
+      color: #1a1a1a;
+      height: 40px;
+      width: 50%;
+      border-radius: 5px;
+      background-color: #A12400;
+      font-size: 16px;
+      padding: 10px;
+      color: #fff;
+      cursor:pointer;
     }
   }
+  
   

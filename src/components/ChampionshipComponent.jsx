@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import "../Sass/Championship.scss"
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 ChampionshipComponent.propTypes = {
     currentUser: PropTypes.object,
     
 };
 export default function ChampionshipComponent({currentUser}) {
-
+  //const {championship} = useSelector((rootReducer)=> rootReducer.championship)
   const navigate = useNavigate()
 
   const goToRoute = (route)=>{
@@ -14,8 +15,7 @@ export default function ChampionshipComponent({currentUser}) {
 }
 
 
-  // const createChampionship = ()=>{
-  // }
+  
  
  return (
 
