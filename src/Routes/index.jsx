@@ -16,6 +16,7 @@ import SaveProfile from "../Pages/commom-pages/Profile/saveProfile";
 import ConnectionsLayout from "../layouts/ConnectionsLayout"
 import ChampionshipLayout from "../layouts/ChampionshipLayout";
 import CreateChampionship from "../Pages/commom-pages/Championship/CreateChampionship";
+import InformationChamionship from "../Pages/commom-pages/Championship/InformationChampionship";
 
 export const router = createBrowserRouter([
     {
@@ -77,6 +78,9 @@ export const router = createBrowserRouter([
     {
       path: "/criarcampeonato",
       element: <CreateChampionship/>
+    },{
+      path: "/criarcampeonato/informacoescampeonato",
+      element: <InformationChamionship/>
     },
     
 

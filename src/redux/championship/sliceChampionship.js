@@ -26,6 +26,7 @@ export const championshipSlice = createSlice({
                 ...state,
                 championship : {
                   ...state.championship,
+                  nomeCategoria: action.payload.nomeCategoria,
                   categoria : action.payload.categoria,
                   genero : action.payload.genero,
                   modalidade : action.payload.modalidade,

@@ -25,6 +25,7 @@
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.10",
     "firebase": "^10.8.0",
+    "install": "^0.13.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "moment": "^2.30.1",
