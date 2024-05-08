@@ -45,7 +45,8 @@ export const currentProfileSlice = createSlice({
                 ...state,
                 profile :{
                     ...state.profile,
-                    regionState : action.payload.regionState
+                    estado : action.payload.estado,
+                    cidade : action.payload.cidade
                 }
             }
         },

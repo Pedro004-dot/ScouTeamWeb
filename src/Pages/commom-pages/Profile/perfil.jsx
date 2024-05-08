@@ -11,30 +11,7 @@ export default function Perfil() {
     const perfis = ["Agente","Atleta","Clube","Organizador de campeonatos","Treinador"]
     const [perfil,setPerfil] = useState(null)
     const navigate = useNavigate()
-
-   const mediador = (profile)=>{
-    switch(profile) {
-      case "Agente":
-        navigate("/registro/empresario/regiao")
-        break;
-      case "Atleta":
-        navigate("/registro/atleta/posicao")
-        break;
-      case "Clube":
-        navigate("/registro/clube/estado")
-        break;
-      case "Organizador de campeonatos":
-        navigate("/registro/competicao/regiao")
-        break;
-      case "Treinador":
-        navigate("/registro/treinador/clube")
-        break;
-      default:
-        toast.error('Perfil invalido') 
-        
-    }
-   }
-    
+   
  return (
    <div className="perfil-container" >
      <div className="perfil-content" >
@@ -73,7 +50,7 @@ export default function Perfil() {
         dispatch(loadProfile({
          perfil: perfil,
         }))
-        mediador(perfil)
+        navigate("/registro/dateBirthOrFundation")
          toast.success(`Você selecionou o perfil ${perfil}`) 
         
         }

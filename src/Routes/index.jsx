@@ -17,6 +17,7 @@ import ConnectionsLayout from "../layouts/ConnectionsLayout"
 import ChampionshipLayout from "../layouts/ChampionshipLayout";
 import CreateChampionship from "../Pages/commom-pages/Championship/CreateChampionship";
 import InformationChamionship from "../Pages/commom-pages/Championship/InformationChampionship";
+import DateBirthOrFundation from "../Pages/commom-pages/Profile/DateBirthOrFundantion";
 
 export const router = createBrowserRouter([
     {
@@ -38,6 +39,9 @@ export const router = createBrowserRouter([
     },{
       path: "/registro/escolhaPerfil",
       element: <Perfil/>
+    },{
+      path:"/registro/dateBirthOrFundation",
+      element: <DateBirthOrFundation/>
     },{
       path: "/registro/atleta/posicao",
       element: <PositionAtleta/>

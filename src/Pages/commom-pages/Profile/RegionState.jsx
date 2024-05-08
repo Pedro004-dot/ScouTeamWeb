@@ -2,59 +2,48 @@ import { toast } from 'react-toastify';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { Autocomplete ,FormControl, FormHelperText} from '@mui/joy';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadRegionState } from '../../../redux/currentProfile/sliceCurrentProfile';
-
+import { fetchStates, fetchCities } from '../../../helpers/buscaCidade';
 
 export default function RegionState() {
   const {profile} = useSelector((rootReducer)=> rootReducer.profile)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [estado,setEstado] = useState()
+  const [estados,setEstados] = useState([])
+  const [cidades,setCidades] = useState([])
+  const [estado,setEstado] = useState([])
+  const [cidade,setCidade] = useState([])
  
-  const estados = [
-    "Acre",
-    "Alagoas",
-    "Amapá",
-    "Amazonas",
-    "Bahia",
-    "Ceará",
-    "Distrito Federal",
-    "Espírito Santo",
-    "Goiás",
-    "Maranhão",
-    "Mato Grosso",
-    "Mato Grosso do Sul",
-    "Minas Gerais",
-    "Pará",
-    "Paraíba",
-    "Paraná",
-    "Pernambuco",
-    "Piauí",
-    "Rio de Janeiro",
-    "Rio Grande do Norte",
-    "Rio Grande do Sul",
-    "Rondônia",
-    "Roraima",
-    "Santa Catarina",
-    "São Paulo",
-    "Sergipe",
-    "Tocantins"
-]
+  useEffect(() => {
+    fetchStates().then(setEstados);
+}, []);
+
+useEffect(() => {
+    if (estado) {
+        fetchCities(estado.id).then(setCidades);
+    } else {
+        setCidades([]);
+    }
+}, [estado]);
 
   const handleTitle = ()=>{
     if(profile.perfil === "Clube"){
-      return "Selecione o estado do clube"
-    }else{
-      return "Selecione seu estado de origem"
+      return "Selecione o estado e cidade do clube"
+    }else if (profile.perfil === "Organizador de campeonatos"){
+      return "Selecione o estado e cidade da competição"
+    }else {
+       return "Selecione seu estado de origem"
     }
   }
   const handleHelperText = ()=>{
     if(profile.perfil === "Clube"){
-      return "Mostre aos atletas e aos treinadores o estado da sua base"
+      return "Mostre aos atletas e aos treinadores o estado e cidade da sua base"
+    }else if (profile.perfil === "Organizador de campeonatos"){
+      return "Apresente a clubes, atletas e empresários o estado e cidade da competição"
     }else{
-      return  "Apresente a clubes e empresarios o seu estado de origem."
+      return  "Apresente a clubes e empresarios o seu estado e cidade de origem."
     }
   }
  
@@ -73,15 +62,24 @@ export default function RegionState() {
          {handleTitle()}</h1>
         <FormControl>
         
-        <Autocomplete
-        className='autocomplete'
-        placeholder='Selecione aqui seu estado'
-        options={estados}
-        sx={{ width: 300 }}
-        onChange={(event, newValue) => {
-        setEstado(newValue);
-      }}
-        />      
+        <div className='location-createChampionship' >
+                      <Autocomplete
+                        className='local-createChampionship'
+                        options={estados}
+                        getOptionLabel={(option) => option.nome}
+                        onChange={(event, newValue) => setEstado(newValue)}
+                        placeholder='Selecione aqui seu estado'
+                    />
+                    <Autocomplete
+                        className='local-createChampionship'
+                        style={{marginTop:"10px"}}
+                        options={cidades}
+                        getOptionLabel={(option) => option.nome}
+                        onChange={(event, newValue) => setCidade(newValue)}
+                        placeholder='Selecione aqui sua cidade'
+                        disabled={!estado}
+                    />
+                    </div>      
         <FormHelperText>
            {handleHelperText()}
         </FormHelperText>
@@ -91,9 +89,11 @@ export default function RegionState() {
         onClick={()=>
        { if(estado){
         dispatch(loadRegionState({
-          regionState : estado
+          estado: estado.nome,
+          cidade: cidade.nome
         }))
-        toast.success(`Você selecionou o estado ${estado}`)
+        
+        toast.success(`Você selecionou o estado ${estado.nome} e a cidade ${cidade.nome}`)
            navigate("/registro/salvarInformacoes") 
            
         }else{

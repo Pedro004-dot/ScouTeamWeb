@@ -2,36 +2,52 @@ import { useSelector } from "react-redux";
 import "../../../Sass/SaveProfile.scss"
 import { useNavigate } from "react-router-dom";
 import { FormHelperText } from "@mui/joy";
-import{  postUserData }from "../../../api/FirestoreAPI"
-import { RegisterAPI } from "../../../api/AuthAPI";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { api } from "../../../db/services/services"
+import { toast } from "react-toastify";
+import generateID from "../../../helpers/generateID";
+
 export default function SaveProfile() {
   const {profile} = useSelector((rootReducer)=> rootReducer.profile)
   const {user} = useSelector((rootReducer)=> rootReducer.user) 
-  console.log(user) 
   const navigate = useNavigate()
   
-  const register = async ()=>{
+  const ids = (generateID(profile.perfil))
+  
+  const userData = {
+    idUser: ids.idUser,
+    idProfile: ids.idProfile,
+    email: user.email,
+    password: user.password,
+    username: user.name,
+    dateBirthOrFundation:user.dataNascimento.$d.getDate().toString()+'/'+user.dataNascimento.$d.getMonth().toString()+'/'+user.dataNascimento.$d.getFullYear().toString(),
+    address: {
+      city: profile.cidade,
+      state: profile.estado
+    }
+  }
+  
+  const profileData ={
+    idUser: ids.User,
+    idProfile: ids.idProfile,
+    position:profile.posicao.map(posicao => posicao.label),
+    caracteristicas: profile.caracteristica.map(caracteristica => caracteristica.label),
+  }
+
+  const registerUser = async ()=>{
     try {
-     const res = await  RegisterAPI(user.email,user.password)
-     
-     
-     postUserData({
-      userID: user.userID,
-      name : user.name ,
-      email : user.email,
-      perfil : profile.perfil,
-      team: profile.team ? profile.team : null,
-      region: profile.region ? profile.region : null,
-      regionState: profile.regionState ? profile.regionState : null,
-      características: profile.caracteristica ? profile.caracteristica : null,
-      posição: profile.posicao  ? profile.posicao  : null,
-      })
-     
-      localStorage.setItem("userEmail", user.email)
-    } catch (error) {
-      alert(error.errors.message)
-    } 
+    const response = await api.post('/user/registrarUsuario', {
+      user: userData,
+      profile: profileData
+  });
+    toast.success(`Usuário e perfil criados com sucesso: ${user.name}`);
+    localStorage.setItem("userEmail", user.email);
+    navigate("/home");
+
+    }catch (error) {   
+      console.log(error)
+      toast.error(`Erro ao criar usuário e perfil: ${user.name}`);
+  }
   } 
 
  return ( 
@@ -71,10 +87,12 @@ export default function SaveProfile() {
          }) : null}   
       </div>
       : null}
-      <p>{profile.regionState ? 
-      `Estado escolhido: ${profile.regionState}`:
+      <p>{profile.estado ? 
+      `Estado escolhido: ${profile.estado}`:
        null} </p>
-
+       <p>{profile.cidade ? 
+      `Cidade escolhida: ${profile.cidade}`:
+       null} </p>
 
       <p>{profile.team ? 
       `Time escolhido: ${profile.team}`:
@@ -84,10 +102,8 @@ export default function SaveProfile() {
    </div>
    <button
    className="botao"
-   onClick={()=>{
-    register()
-    navigate("/home")
-   }}
+   onClick={async ()=>{
+   registerUser(userData, profileData)}}
    >
    Salvar Perfil
    </button>
@@ -96,4 +112,15 @@ export default function SaveProfile() {
      </FormHelperText>
    </div>
  );
-}
+} //  postUserData({
+    //   userID: user.userID,
+    //   name : user.name ,
+    //   email : user.email,
+    //   perfil : profile.perfil,
+    //   team: profile.team ? profile.team : null,
+    //   region: profile.region ? profile.region : null,
+    //   regionState: profile.regionState ? profile.regionState : null,
+    //   características: profile.caracteristica ? profile.caracteristica : null,
+    //   posição: profile.posicao  ? profile.posicao  : null,
+    //   })
+     

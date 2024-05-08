@@ -1,11 +1,9 @@
 import { useState } from "react";
-import {LoginAPI , GoogleSignInAPI} from "../api/AuthAPI";
 import "../Sass/LoginComponent.scss"
 import "../Sass/Button.scss"
-import GoogleButton from 'react-google-button'
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import {api} from "../db/services/services"
 
 
 export default function LoginComponent() {
@@ -13,25 +11,20 @@ export default function LoginComponent() {
   const navigate  = useNavigate()
   const login = async ()=>{
     try {
-     let res = await  LoginAPI(credentails.email,credentails.password)
-     localStorage.setItem("userEmail", credentails.email) 
+      const response = await api.post("user/authenticate",{
+        email: credentails.email,
+        password:credentails.password
+
+      })
+      localStorage.setItem("userEmail", credentails.email) 
       navigate("/Home")
       toast.success('Signed In to Scout team')
     } catch(err) {
       console.log("Impossivel de logar")
-      toast.error('Please Check youer Credentials')
+      toast.error('Senha ou usuario incorreto')
     }
   }
-  const googleSignIn = async ()=>{
-    try {
-      let response = await GoogleSignInAPI()
-      console.log(response)
-      navigate("/Home")
-    } catch (error) {
-      console.log("Nao foi possivel logar")
-      toast.error('Usuario nao cadastrado')
-    }
-  }
+ 
  return (
   
    <div className="login-container" >

@@ -19,11 +19,20 @@ export const currentUserSlice = createSlice({
                     email : action.payload.email,
                     password : action.payload.password,
                     descricao: action.payload.descricao,
+                   
+                }
+            }
+        },loadDateNascimentoOrFundation:(state,action)=>{
+            return{
+                ...state,
+                user :{
+                    ...state.user,
+                     dataNascimento: action.payload.dataNascimento
                 }
             }
         }
     }
 })
 
-export const {loadUser} = currentUserSlice.actions
+export const {loadUser,loadDateNascimentoOrFundation} = currentUserSlice.actions
 export default currentUserSlice.reducer
